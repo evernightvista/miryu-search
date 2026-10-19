@@ -1,0 +1,22 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "naykkalak"
+            }
+        ],
+        "Category": "Utilities",
+        "Description": "Windows 11 style search box for the panel",
+        "Icon": "search",
+        "Id": "org.fenestra.search",
+        "License": "GPL-3.0+",
+        "Name": "Fenestra Search",
+        "Version": "1.0",
+        "Website": "https://github.com/naykkalak/fenestra-search"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.search"
+    ]
+}

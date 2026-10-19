@@ -1,0 +1,125 @@
+# Fenestra Search — French translation
+# SPDX-FileCopyrightText: 2026 naykkalak
+# SPDX-License-Identifier: GPL-3.0-or-later
+msgid ""
+msgstr ""
+"Project-Id-Version: Fenestra Search 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/naykkalak/fenestra-search/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: contents/config/config.qml:11
+msgid "General"
+msgstr "Général"
+
+#: contents/ui/Accueil.qml:47
+msgid "Recent"
+msgstr "Récent"
+
+#: contents/ui/Accueil.qml:101
+msgid "Home"
+msgstr "Dossier Personnel"
+
+#: contents/ui/Accueil.qml:144
+msgid "Quick searches"
+msgstr "Recherches rapides"
+
+#: contents/ui/Accueil.qml:195
+msgid "Audio"
+msgstr "Audio"
+
+#: contents/ui/Accueil.qml:196
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+#: contents/ui/Accueil.qml:197
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#: contents/ui/Accueil.qml:198
+msgid "Display"
+msgstr "Affichage"
+
+#: contents/ui/Accueil.qml:199
+msgid "Colors"
+msgstr "Couleurs"
+
+#: contents/ui/Accueil.qml:200
+msgid "Wallpaper"
+msgstr "Fond d'écran"
+
+#: contents/ui/Accueil.qml:239
+msgid "Top apps"
+msgstr "Top des applications"
+
+#: contents/ui/BandeauBas.qml:58
+msgid "Back"
+msgstr "Retour"
+
+#: contents/ui/Capsule.qml:113
+msgid "Search"
+msgstr "Rechercher"
+
+#: contents/ui/ConfigGeneral.qml:19
+msgid "Search box width:"
+msgstr "Largeur de la capsule :"
+
+#: contents/ui/ConfigGeneral.qml:33
+msgid "Web search engine:"
+msgstr "Moteur de recherche web :"
+
+#: contents/ui/ConfigGeneral.qml:36
+msgid "Follow KDE settings"
+msgstr "Suivre les réglages de KDE"
+
+#: contents/ui/ConfigGeneral.qml:43
+msgid "“Follow KDE settings” uses the default engine chosen in System Settings › Web Search Keywords."
+msgstr "« Suivre les réglages de KDE » utilise le moteur par défaut choisi dans Configuration du système › Mots-clés de recherche web."
+
+#: contents/ui/FenetreRecherche.qml:112
+msgid "Other Results"
+msgstr "Autres résultats"
+
+#: contents/ui/FenetreRecherche.qml:122
+msgid "Search “%1” on %2"
+msgstr "Rechercher « %1 » sur %2"
+
+#: contents/ui/FenetreRecherche.qml:128
+msgid "Web search"
+msgstr "Recherche web"
+
+#: contents/ui/ListeResultats.qml:61
+msgid "Searching…"
+msgstr "Recherche…"
+
+#: contents/ui/ListeResultats.qml:61
+msgid "No results found"
+msgstr "Aucun résultat"
+
+#: contents/ui/PucesFiltres.qml:20
+msgid "All"
+msgstr "Tout"
+
+#: contents/ui/PucesFiltres.qml:21
+msgid "Apps"
+msgstr "Applications"
+
+#: contents/ui/PucesFiltres.qml:22
+msgid "Docs"
+msgstr "Documents"
+
+#: contents/ui/PucesFiltres.qml:23
+msgid "Images"
+msgstr "Images"
+
+#: contents/ui/PucesFiltres.qml:24
+msgid "Folders"
+msgstr "Dossiers"
+
+#: contents/ui/PucesFiltres.qml:25
+msgid "Web"
+msgstr "Web"
+

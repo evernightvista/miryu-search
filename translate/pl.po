@@ -1,0 +1,126 @@
+# Fenestra Search — Polish translation
+# SPDX-FileCopyrightText: 2026 naykkalak
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Machine-assisted translation — to be reviewed by a native speaker
+msgid ""
+msgstr ""
+"Project-Id-Version: Fenestra Search 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/naykkalak/fenestra-search/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: contents/config/config.qml:11
+msgid "General"
+msgstr "Ogólne"
+
+#: contents/ui/Accueil.qml:47
+msgid "Recent"
+msgstr "Ostatnie"
+
+#: contents/ui/Accueil.qml:101
+msgid "Home"
+msgstr "Katalog domowy"
+
+#: contents/ui/Accueil.qml:144
+msgid "Quick searches"
+msgstr "Szybkie wyszukiwanie"
+
+#: contents/ui/Accueil.qml:195
+msgid "Audio"
+msgstr "Dźwięk"
+
+#: contents/ui/Accueil.qml:196
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+#: contents/ui/Accueil.qml:197
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#: contents/ui/Accueil.qml:198
+msgid "Display"
+msgstr "Ekran"
+
+#: contents/ui/Accueil.qml:199
+msgid "Colors"
+msgstr "Kolory"
+
+#: contents/ui/Accueil.qml:200
+msgid "Wallpaper"
+msgstr "Tapeta"
+
+#: contents/ui/Accueil.qml:239
+msgid "Top apps"
+msgstr "Najczęściej używane"
+
+#: contents/ui/BandeauBas.qml:58
+msgid "Back"
+msgstr "Wstecz"
+
+#: contents/ui/Capsule.qml:113
+msgid "Search"
+msgstr "Szukaj"
+
+#: contents/ui/ConfigGeneral.qml:19
+msgid "Search box width:"
+msgstr "Szerokość pola wyszukiwania:"
+
+#: contents/ui/ConfigGeneral.qml:33
+msgid "Web search engine:"
+msgstr "Wyszukiwarka internetowa:"
+
+#: contents/ui/ConfigGeneral.qml:36
+msgid "Follow KDE settings"
+msgstr "Według ustawień KDE"
+
+#: contents/ui/ConfigGeneral.qml:43
+msgid "“Follow KDE settings” uses the default engine chosen in System Settings › Web Search Keywords."
+msgstr "„Według ustawień KDE” używa domyślnej wyszukiwarki wybranej w Ustawieniach systemowych › Słowa kluczowe wyszukiwania."
+
+#: contents/ui/FenetreRecherche.qml:112
+msgid "Other Results"
+msgstr "Inne wyniki"
+
+#: contents/ui/FenetreRecherche.qml:122
+msgid "Search “%1” on %2"
+msgstr "Szukaj „%1” w %2"
+
+#: contents/ui/FenetreRecherche.qml:128
+msgid "Web search"
+msgstr "Wyszukiwanie w internecie"
+
+#: contents/ui/ListeResultats.qml:61
+msgid "Searching…"
+msgstr "Wyszukiwanie…"
+
+#: contents/ui/ListeResultats.qml:61
+msgid "No results found"
+msgstr "Brak wyników"
+
+#: contents/ui/PucesFiltres.qml:20
+msgid "All"
+msgstr "Wszystko"
+
+#: contents/ui/PucesFiltres.qml:21
+msgid "Apps"
+msgstr "Aplikacje"
+
+#: contents/ui/PucesFiltres.qml:22
+msgid "Docs"
+msgstr "Dokumenty"
+
+#: contents/ui/PucesFiltres.qml:23
+msgid "Images"
+msgstr "Obrazy"
+
+#: contents/ui/PucesFiltres.qml:24
+msgid "Folders"
+msgstr "Foldery"
+
+#: contents/ui/PucesFiltres.qml:25
+msgid "Web"
+msgstr "Internet"
+

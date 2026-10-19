@@ -1,0 +1,126 @@
+# Fenestra Search — Russian translation
+# SPDX-FileCopyrightText: 2026 naykkalak
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Machine-assisted translation — to be reviewed by a native speaker
+msgid ""
+msgstr ""
+"Project-Id-Version: Fenestra Search 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/naykkalak/fenestra-search/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: contents/config/config.qml:11
+msgid "General"
+msgstr "Общие"
+
+#: contents/ui/Accueil.qml:47
+msgid "Recent"
+msgstr "Недавние"
+
+#: contents/ui/Accueil.qml:101
+msgid "Home"
+msgstr "Домашняя папка"
+
+#: contents/ui/Accueil.qml:144
+msgid "Quick searches"
+msgstr "Быстрый поиск"
+
+#: contents/ui/Accueil.qml:195
+msgid "Audio"
+msgstr "Звук"
+
+#: contents/ui/Accueil.qml:196
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+#: contents/ui/Accueil.qml:197
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#: contents/ui/Accueil.qml:198
+msgid "Display"
+msgstr "Экран"
+
+#: contents/ui/Accueil.qml:199
+msgid "Colors"
+msgstr "Цвета"
+
+#: contents/ui/Accueil.qml:200
+msgid "Wallpaper"
+msgstr "Обои"
+
+#: contents/ui/Accueil.qml:239
+msgid "Top apps"
+msgstr "Популярные приложения"
+
+#: contents/ui/BandeauBas.qml:58
+msgid "Back"
+msgstr "Назад"
+
+#: contents/ui/Capsule.qml:113
+msgid "Search"
+msgstr "Поиск"
+
+#: contents/ui/ConfigGeneral.qml:19
+msgid "Search box width:"
+msgstr "Ширина поля поиска:"
+
+#: contents/ui/ConfigGeneral.qml:33
+msgid "Web search engine:"
+msgstr "Поисковая система:"
+
+#: contents/ui/ConfigGeneral.qml:36
+msgid "Follow KDE settings"
+msgstr "Как в настройках KDE"
+
+#: contents/ui/ConfigGeneral.qml:43
+msgid "“Follow KDE settings” uses the default engine chosen in System Settings › Web Search Keywords."
+msgstr "«Как в настройках KDE» использует поисковую систему по умолчанию из Параметров системы › Ключевые слова веб-поиска."
+
+#: contents/ui/FenetreRecherche.qml:112
+msgid "Other Results"
+msgstr "Другие результаты"
+
+#: contents/ui/FenetreRecherche.qml:122
+msgid "Search “%1” on %2"
+msgstr "Искать «%1» в %2"
+
+#: contents/ui/FenetreRecherche.qml:128
+msgid "Web search"
+msgstr "Поиск в интернете"
+
+#: contents/ui/ListeResultats.qml:61
+msgid "Searching…"
+msgstr "Поиск…"
+
+#: contents/ui/ListeResultats.qml:61
+msgid "No results found"
+msgstr "Ничего не найдено"
+
+#: contents/ui/PucesFiltres.qml:20
+msgid "All"
+msgstr "Все"
+
+#: contents/ui/PucesFiltres.qml:21
+msgid "Apps"
+msgstr "Приложения"
+
+#: contents/ui/PucesFiltres.qml:22
+msgid "Docs"
+msgstr "Документы"
+
+#: contents/ui/PucesFiltres.qml:23
+msgid "Images"
+msgstr "Изображения"
+
+#: contents/ui/PucesFiltres.qml:24
+msgid "Folders"
+msgstr "Папки"
+
+#: contents/ui/PucesFiltres.qml:25
+msgid "Web"
+msgstr "Интернет"
+
