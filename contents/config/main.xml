@@ -11,12 +11,17 @@
   <group name="General">
     <!-- largeur de la capsule : de 0 (la plus étroite) à 12 (la plus large) -->
     <entry name="largeurCran" type="Int">
-      <default>7</default>
+      <default>4</default>
     </entry>
     <!-- moteur de la recherche web : kde (celui de KDE), duckduckgo, google, bing,
          qwant, ecosia, startpage, brave -->
     <entry name="moteurWeb" type="String">
       <default>kde</default>
+    </entry>
+    <!-- n'afficher que l'icône dans la barre (le champ de recherche remonte alors
+         en haut de la fenêtre) -->
+    <entry name="iconeSeule" type="Bool">
+      <default>false</default>
     </entry>
   </group>
 </kcfg>

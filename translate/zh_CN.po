@@ -1,0 +1,138 @@
+# Fenestra Search — Chinese (Simplified) translation
+# SPDX-FileCopyrightText: 2026 naykkalak
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Machine-assisted translation — to be reviewed by a native speaker
+msgid ""
+msgstr ""
+"Project-Id-Version: Miryu Search 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/naykkalak/fenestra-search/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: contents/config/config.qml:11
+msgid "General"
+msgstr "常规"
+
+#: contents/ui/Accueil.qml:47
+msgid "Recent"
+msgstr "最近"
+
+#: contents/ui/Accueil.qml:101
+msgid "Home"
+msgstr "主文件夹"
+
+#: contents/ui/Accueil.qml:144
+msgid "Quick searches"
+msgstr "快速搜索"
+
+#: contents/ui/Accueil.qml:195
+msgid "Audio"
+msgstr "音频"
+
+#: contents/ui/Accueil.qml:196
+msgid "Bluetooth"
+msgstr "蓝牙"
+
+#: contents/ui/Accueil.qml:197
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#: contents/ui/Accueil.qml:198
+msgid "Display"
+msgstr "显示"
+
+#: contents/ui/Accueil.qml:199
+msgid "Colors"
+msgstr "颜色"
+
+#: contents/ui/Accueil.qml:200
+msgid "Wallpaper"
+msgstr "壁纸"
+
+#: contents/ui/Accueil.qml:239
+msgid "Top apps"
+msgstr "常用应用"
+
+#: contents/ui/BandeauBas.qml:58
+msgid "Back"
+msgstr "返回"
+
+#: contents/ui/Capsule.qml:113
+msgid "Search"
+msgstr "搜索"
+
+#: contents/ui/ConfigGeneral.qml:19
+msgid "Search box width:"
+msgstr "搜索框宽度："
+
+#: contents/ui/ConfigGeneral.qml:33
+msgid "Web search engine:"
+msgstr "网页搜索引擎："
+
+#: contents/ui/ConfigGeneral.qml:36
+msgid "Follow KDE settings"
+msgstr "跟随 KDE 设置"
+
+#: contents/ui/ConfigGeneral.qml:43
+msgid "“Follow KDE settings” uses the default engine chosen in System Settings › Web Search Keywords."
+msgstr "“跟随 KDE 设置”使用在系统设置 › 网页搜索关键字中选择的默认引擎。"
+
+#: contents/ui/FenetreRecherche.qml:112
+msgid "Best match"
+msgstr "最佳匹配"
+
+#: contents/ui/FenetreRecherche.qml:122
+msgid "Search “%1” on %2"
+msgstr "在 %2 上搜索“%1”"
+
+#: contents/ui/FenetreRecherche.qml:128
+msgid "Web search"
+msgstr "网页搜索"
+
+#: contents/ui/ListeResultats.qml:61
+msgid "Searching…"
+msgstr "正在搜索…"
+
+#: contents/ui/ListeResultats.qml:61
+msgid "No results found"
+msgstr "未找到结果"
+
+#: contents/ui/PucesFiltres.qml:20
+msgid "All"
+msgstr "全部"
+
+#: contents/ui/PucesFiltres.qml:21
+msgid "Apps"
+msgstr "应用"
+
+#: contents/ui/PucesFiltres.qml:22
+msgid "Docs"
+msgstr "文档"
+
+#: contents/ui/PucesFiltres.qml:23
+msgid "Images"
+msgstr "图片"
+
+#: contents/ui/PucesFiltres.qml:24
+msgid "Folders"
+msgstr "文件夹"
+
+#: contents/ui/PucesFiltres.qml:25
+msgid "Web"
+msgstr "网页"
+
+
+#: contents/ui/main.qml contents/ui/ConfigGeneral.qml
+msgid "Show icon only"
+msgstr "只显示图标"
+
+#: contents/ui/ConfigGeneral.qml
+msgid "Search box:"
+msgstr "搜索框："
+
+#: contents/ui/ConfigGeneral.qml
+msgid "In icon-only mode, the search field moves to the top of the search window. You can also right-click the search box to toggle this."
+msgstr "在仅图标模式下，搜索框会移到搜索窗口顶部。也可以右键点击搜索框来切换此模式。"

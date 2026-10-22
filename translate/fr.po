@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 msgid ""
 msgstr ""
-"Project-Id-Version: Fenestra Search 1.0\n"
+"Project-Id-Version: Miryu Search 1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/naykkalak/fenestra-search/issues\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,8 +80,8 @@ msgid "“Follow KDE settings” uses the default engine chosen in System Settin
 msgstr "« Suivre les réglages de KDE » utilise le moteur par défaut choisi dans Configuration du système › Mots-clés de recherche web."
 
 #: contents/ui/FenetreRecherche.qml:112
-msgid "Other Results"
-msgstr "Autres résultats"
+msgid "Best match"
+msgstr "Meilleur résultat"
 
 #: contents/ui/FenetreRecherche.qml:122
 msgid "Search “%1” on %2"
@@ -123,3 +123,15 @@ msgstr "Dossiers"
 msgid "Web"
 msgstr "Web"
 
+
+#: contents/ui/main.qml contents/ui/ConfigGeneral.qml
+msgid "Show icon only"
+msgstr "Icône seule"
+
+#: contents/ui/ConfigGeneral.qml
+msgid "Search box:"
+msgstr "Zone de recherche :"
+
+#: contents/ui/ConfigGeneral.qml
+msgid "In icon-only mode, the search field moves to the top of the search window. You can also right-click the search box to toggle this."
+msgstr "En mode icône seule, le champ de recherche remonte en haut de la fenêtre de recherche. Vous pouvez aussi activer ce mode par un clic droit sur la zone de recherche."

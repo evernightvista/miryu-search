@@ -64,7 +64,9 @@ Item {
                         id: zone
                         anchors.fill: parent
                         hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
+                        // comme sous Windows 11 : les puces de filtre gardent le
+                        // pointeur normal (pas de main)
+                        cursorShape: Qt.ArrowCursor
                         onClicked: puces.choisir(modelData.cle)
                     }
                 }

@@ -65,9 +65,10 @@ PlasmaComponents.ScrollView {
             }
         }
 
+        // surlignage façon KRunner : pleine couleur d'accent, coins arrondis
         highlight: Rectangle {
-            color: (Kirigami.Theme.textColor.hslLightness > 0.5 ? "#33ffffff" : "#a6ffffff")
-            radius: 4
+            color: Kirigami.Theme.highlightColor
+            radius: 6
         }
 
         section.delegate: Item {
@@ -92,10 +93,12 @@ PlasmaComponents.ScrollView {
 
             Rectangle {
                 anchors.fill: parent
-                color: (survol.containsMouse || ligne.choisie) ? (Kirigami.Theme.textColor.hslLightness > 0.5 ? "#33ffffff" : "#a6ffffff") : "transparent"
-                radius: 4
-                border.width: ligne.choisie ? 1 : 0
-                border.color: (survol.containsMouse || ligne.choisie) ? (Kirigami.Theme.textColor.hslLightness > 0.5 ? "#26ffffff" : "#20000000") : "transparent"
+                // sélection : accent plein (comme KRunner) ; survol seul : léger voile
+                color: ligne.choisie ? Kirigami.Theme.highlightColor
+                     : (survol.containsMouse ? Qt.rgba(Kirigami.Theme.highlightColor.r,
+                        Kirigami.Theme.highlightColor.g, Kirigami.Theme.highlightColor.b, 0.35)
+                     : "transparent")
+                radius: 6
 
                 RowLayout {
                     id: contenu
@@ -109,7 +112,9 @@ PlasmaComponents.ScrollView {
                         Layout.preferredWidth: 22
                         Layout.preferredHeight: 22
                         source: modelData.decoration
-                        color: Kirigami.Theme.textColor
+                        // ligne sélectionnée : texte et icône en couleur « surlignée » (KRunner)
+                        color: ligne.choisie ? Kirigami.Theme.highlightedTextColor
+                                             : Kirigami.Theme.textColor
                     }
 
                     ColumnLayout {
@@ -117,14 +122,18 @@ PlasmaComponents.ScrollView {
                         spacing: 1
                         Text {
                             text: modelData.display || ""
-                            color: Kirigami.Theme.textColor
+                            color: ligne.choisie ? Kirigami.Theme.highlightedTextColor
+                                                 : Kirigami.Theme.textColor
                             font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                             elide: Text.ElideRight
                             Layout.fillWidth: true
                         }
                         Text {
                             text: Classement.cheminCourt(modelData)
-                            color: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.6)
+                            color: ligne.choisie
+                                   ? Qt.rgba(Kirigami.Theme.highlightedTextColor.r, Kirigami.Theme.highlightedTextColor.g,
+                                             Kirigami.Theme.highlightedTextColor.b, 0.8)
+                                   : Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.6)
                             font.family: Kirigami.Theme.smallFont.family
                             font.pixelSize: Kirigami.Theme.smallFont.pixelSize
                             elide: Text.ElideMiddle

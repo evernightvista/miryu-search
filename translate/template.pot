@@ -78,7 +78,7 @@ msgid "“Follow KDE settings” uses the default engine chosen in System Settin
 msgstr ""
 
 #: contents/ui/FenetreRecherche.qml:112
-msgid "Other Results"
+msgid "Best match"
 msgstr ""
 
 #: contents/ui/FenetreRecherche.qml:122
@@ -121,3 +121,15 @@ msgstr ""
 msgid "Web"
 msgstr ""
 
+
+#: contents/ui/main.qml contents/ui/ConfigGeneral.qml
+msgid "Show icon only"
+msgstr ""
+
+#: contents/ui/ConfigGeneral.qml
+msgid "Search box:"
+msgstr ""
+
+#: contents/ui/ConfigGeneral.qml
+msgid "In icon-only mode, the search field moves to the top of the search window. You can also right-click the search box to toggle this."
+msgstr ""

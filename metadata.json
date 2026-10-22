@@ -3,17 +3,44 @@
     "KPlugin": {
         "Authors": [
             {
-                "Name": "naykkalak"
+                "Name": "KairikiFedora",
+                "Email": "13278297951@sina.cn"
             }
         ],
         "Category": "Utilities",
         "Description": "Windows 11 style search box for the panel",
+        "Description[de]": "Windows-11-Suchfeld für die Leiste",
+        "Description[es]": "Casilla de búsqueda estilo Windows 11 para el panel",
+        "Description[fr]": "Zone de recherche style Windows 11 pour le tableau de bord",
+        "Description[it]": "Casella di ricerca in stile Windows 11 per il pannello",
+        "Description[ja]": "Windows 11 風のパネル用検索ボックス",
+        "Description[ko]": "패널용 Windows 11 스타일 검색 상자",
+        "Description[nl]": "Zoekvak in Windows 11-stijl voor het paneel",
+        "Description[pl]": "Pole wyszukiwania w stylu Windows 11 dla panelu",
+        "Description[pt]": "Caixa de pesquisa estilo Windows 11 para o painel",
+        "Description[ru]": "Строка поиска в стиле Windows 11 для панели",
+        "Description[tr]": "Panel için Windows 11 tarzı arama kutusu",
+        "Description[zh_CN]": "面板上的 Windows 11 风格搜索框",
+        "Description[zh_TW]": "面板上的 Windows 11 風格搜尋框",
         "Icon": "search",
-        "Id": "org.fenestra.search",
+        "Id": "org.miryugaming.search",
         "License": "GPL-3.0+",
-        "Name": "Fenestra Search",
-        "Version": "1.0",
-        "Website": "https://github.com/naykkalak/fenestra-search"
+        "Name": "Miryu Search",
+        "Name[de]": "Miryu Search",
+        "Name[es]": "Miryu Search",
+        "Name[fr]": "Miryu Search",
+        "Name[it]": "Miryu Search",
+        "Name[ja]": "Miryu 検索",
+        "Name[ko]": "Miryu Search",
+        "Name[nl]": "Miryu Search",
+        "Name[pl]": "Miryu Search",
+        "Name[pt]": "Miryu Search",
+        "Name[ru]": "Miryu Search",
+        "Name[tr]": "Miryu Search",
+        "Name[zh_CN]": "Miryu 搜索",
+        "Name[zh_TW]": "Miryu 搜尋",
+        "Version": "45.0.0",
+        "Website": "https://github.com/evernightvista/miryu-search"
     },
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-Provides": [

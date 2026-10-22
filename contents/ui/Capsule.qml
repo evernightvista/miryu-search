@@ -15,10 +15,27 @@ Item {
 
     property bool ouverte: false
     property string texte: ""
+    // suggestion de complétion : le reste du meilleur résultat (ex. « kd » + « E Connect »)
+    property string suggestion: ""
+    property bool iconeSeule: false
     signal basculer()
     signal ouvrir()
+    // clic dans la capsule : abandonne la sélection (Ctrl+A)
+    signal annulerSelection()
 
     readonly property bool themeSombre: Kirigami.Theme.textColor.hslLightness > 0.5
+
+    // reflète dans la capsule la sélection du champ de saisie de la fenêtre :
+    // Ctrl+A (tout sélectionner), Maj+flèches, glisser à la souris…
+    function selectionner(debut, fin) {
+        if (affichage.vide) { libelle.deselect(); return; }
+        if (fin > debut) libelle.select(debut, fin);
+        else libelle.deselect();
+    }
+
+    function deselectionner() {
+        libelle.deselect();
+    }
 
     // ── Oreille PARTAGÉE avec le menu Démarrer (Fenestra Menu 11) ──
     // Une seule poignée passive posée sur la racine de la barre (objectName
@@ -92,39 +109,85 @@ Item {
             Kirigami.Icon {
                 Layout.preferredWidth: fond.height * 0.65
                 Layout.preferredHeight: Layout.preferredWidth
-                Layout.alignment: Qt.AlignVCenter
+                // icône seule : centrée dans la capsule
+                Layout.fillWidth: capsule.iconeSeule
+                Layout.alignment: Qt.AlignVCenter | (capsule.iconeSeule ? Qt.AlignHCenter : 0)
                 source: Qt.resolvedUrl("../images/loupe.svg")
             }
 
-            // affichage façon champ de saisie : texte tapé + curseur clignotant
+            // affichage façon champ de saisie : texte tapé + suggestion de complétion
+            // + curseur clignotant. Le texte est un TextEdit en lecture seule : on peut
+            // le sélectionner à la souris (fond en couleur d'accent, texte en blanc),
+            // comme sur la capture « normale » — sans jamais lui donner le focus clavier.
             Item {
                 id: affichage
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
-                readonly property bool vide: capsule.texte === ""
+                visible: !capsule.iconeSeule
 
-                Text {
+                readonly property bool vide: capsule.texte === ""
+                readonly property bool aSuggestion: !vide && capsule.suggestion.length > 0
+
+                // largeur totale affichée (texte tapé + suggestion), pour le défilement :
+                // un texte trop long défile vers la gauche, la fin reste visible
+                readonly property real largeurTexte: libelle.implicitWidth
+                    + (aSuggestion ? complement.implicitWidth + 2 : 0)
+                readonly property real baseX: Math.min(0, parent.width - curseur.width - 1 - largeurTexte)
+
+                TextEdit {
                     id: libelle
+                    x: affichage.baseX
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.verticalCenterOffset: -1
-                    // un texte trop long défile vers la gauche : la fin reste visible
-                    x: Math.min(0, parent.width - curseur.width - 1 - contentWidth)
                     text: affichage.vide ? i18n("Search") : capsule.texte
+                    readOnly: true                     // saisie réelle dans la fenêtre : ici affichage seul
+                    activeFocusOnPress: false          // ne vole jamais le focus clavier de la fenêtre
+                    selectByMouse: !affichage.vide     // sélection à la souris sur le texte tapé
+                    // la sélection reste visible alors que le focus clavier est
+                    // dans la fenêtre : c'est ce qui rend Ctrl+A visible ici
+                    persistentSelection: true
+                    selectionColor: Kirigami.Theme.highlightColor
+                    selectedTextColor: Kirigami.Theme.highlightedTextColor
+                    // le texte est remplacé (frappe) ou changé : la sélection ne suit plus
+                    onTextChanged: deselect()
                     color: affichage.vide
                            ? Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g,
                                      Kirigami.Theme.textColor.b, 0.55)
                            : Kirigami.Theme.textColor
                     font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                     font.family: Kirigami.Theme.defaultFont.family
+                    cursorVisible: false               // le curseur clignotant est simulé ci-dessous
+
+                    // un simple clic sur le texte abandonne la sélection
+                    TapHandler {
+                        acceptedButtons: Qt.LeftButton
+                        enabled: capsule.ouverte && !affichage.vide
+                        onTapped: capsule.annulerSelection()
+                    }
                 }
 
-                Rectangle {   // curseur : au début si vide, après le texte sinon
+                // suggestion de complétion : affichée en demi-teinte après le texte tapé
+                Text {
+                    id: complement
+                    x: affichage.baseX + libelle.implicitWidth + 2
+                    anchors.verticalCenter: libelle.verticalCenter
+                    anchors.verticalCenterOffset: -1
+                    visible: affichage.aSuggestion
+                    text: capsule.suggestion
+                    color: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g,
+                                   Kirigami.Theme.textColor.b, 0.45)
+                    font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
+                    font.family: Kirigami.Theme.defaultFont.family
+                }
+
+                Rectangle {   // curseur : au début si vide, après le texte tapé (avant la suggestion) sinon
                     id: curseur
                     width: 1
                     height: Math.round(libelle.font.pixelSize * 1.2)
                     anchors.verticalCenter: parent.verticalCenter
-                    x: affichage.vide ? 0 : Math.min(libelle.x + libelle.contentWidth + 1, parent.width - width)
+                    x: affichage.vide ? 0 : Math.min(affichage.baseX + libelle.implicitWidth + 1,
+                                                     parent.width - width)
                     color: Kirigami.Theme.textColor
                     visible: capsule.ouverte && clignote.allume
                 }
@@ -141,9 +204,22 @@ Item {
         }
 
         MouseArea {
+            id: zone
             anchors.fill: parent
-            cursorShape: Qt.IBeamCursor
+            // icône seule : curseur normal ; champ : curseur texte
+            cursorShape: capsule.iconeSeule ? Qt.ArrowCursor : Qt.IBeamCursor
+            // dès qu'il y a du texte saisi et que la fenêtre est ouverte (hors mode
+            // icône seule, où la capsule n'affiche rien), la souris revient au TextEdit
+            // pour pouvoir sélectionner les caractères (avec surlignage)
+            enabled: capsule.iconeSeule || affichage.vide || !capsule.ouverte
             onClicked: capsule.ouverte ? capsule.basculer() : capsule.ouvrir()
         }
+    }
+
+    // clic hors du texte (icône, marges) : abandonne aussi la sélection
+    TapHandler {
+        acceptedButtons: Qt.LeftButton
+        enabled: capsule.ouverte && !affichage.vide
+        onTapped: capsule.annulerSelection()
     }
 }

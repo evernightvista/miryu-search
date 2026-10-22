@@ -13,6 +13,7 @@ import "Moteurs.js" as Moteurs
 KCM.SimpleKCM {
     property alias cfg_largeurCran: largeur.value
     property string cfg_moteurWeb
+    property alias cfg_iconeSeule: iconeSeule.checked
 
     Kirigami.FormLayout {
         RowLayout {
@@ -26,6 +27,20 @@ KCM.SimpleKCM {
                 Layout.preferredWidth: Kirigami.Units.gridUnit * 12
             }
             QQC2.Label { text: largeur.value }
+        }
+
+        QQC2.CheckBox {
+            id: iconeSeule
+            Kirigami.FormData.label: i18n("Search box:")
+            text: i18n("Show icon only")
+        }
+
+        QQC2.Label {
+            text: i18n("In icon-only mode, the search field moves to the top of the search window. You can also right-click the search box to toggle this.")
+            wrapMode: Text.WordWrap
+            Layout.maximumWidth: Kirigami.Units.gridUnit * 22
+            opacity: 0.7
+            font: Kirigami.Theme.smallFont
         }
 
         QQC2.ComboBox {

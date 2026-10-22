@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 import QtQuick
+import QtQuick.Layouts
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents
@@ -23,9 +24,44 @@ PlasmaCore.Dialog {
     property var racine: null
     readonly property string texte: racine ? racine.texteRecherche : ""
     property string filtre: "All"
+    // mode « icône seule » : champ de recherche visible en haut de la fenêtre
+    readonly property bool iconeSeule: Plasmoid.configuration.iconeSeule
+    readonly property int hauteurSaisie: iconeSeule ? 54 : 0
 
-    width: 800
-    height: 830
+    // taille du contenu : la hauteur est bornée à l'écran utile afin d'éviter
+    // tout chevauchement avec la barre des tâches et de garder les coins
+    // arrondis du haut visibles en basse résolution (même approche que miryu-start).
+    readonly property int largeurContenu: {
+        var ecran = racine ? racine.availableScreenRect.width : 0;
+        if (!isFinite(ecran) || ecran <= 0) return 800;
+        var offset = Kirigami.Units.smallSpacing;
+        return Math.min(800, Math.max(200, ecran - 2 * offset));
+    }
+    readonly property int hauteurVoulue: 830
+    readonly property int hauteurMin: 200
+    property int hauteurContenu: hauteurVoulue
+
+    function calculerHauteurContenu() {
+        var ecran = racine ? racine.availableScreenRect.height : 0;
+        if (!isFinite(ecran) || ecran <= 0) return hauteurVoulue;
+        var m = fenetre.margins;
+        var mt = (m && isFinite(m.top)) ? m.top : 0;
+        var mb = (m && isFinite(m.bottom)) ? m.bottom : 0;
+        // On réserve les marges haute ET basse du cadre + un petit espace en haut :
+        // la fenêtre tient toujours entre le bord supérieur de l'écran utile et la
+        // barre des tâches — elle ne la recouvre jamais, même en basse résolution,
+        // et les coins arrondis du haut restent visibles.
+        var espaceHaut = mt + Kirigami.Units.smallSpacing;
+        var maxH = Math.max(hauteurMin, ecran - mt - mb - espaceHaut);
+        return Math.min(hauteurVoulue, maxH);
+    }
+
+    // Référence explicite à la capsule pour le centrage horizontal
+    property Item capsule: racine ? racine.compactRepresentationItem : null
+
+    // Supprime la bordure du côté de la barre (comme miryu-start) : la fenêtre
+    // vient se plaquer contre la barre des tâches au lieu de la recouvrir.
+    floating: 0
     location: Plasmoid.location
     flags: Qt.WindowStaysOnTopHint
     hideOnWindowDeactivate: true
@@ -38,21 +74,134 @@ PlasmaCore.Dialog {
         saisie.forceActiveFocus();
     }
 
+    // La capsule n'est qu'un affichage : on lui reflète la sélection du vrai champ
+    // de saisie (Ctrl+A, Maj+flèches…), sinon elle resterait sans surlignage.
+    function refleterSelection() {
+        var c = fenetre.capsule;
+        if (c && c.selectionner)
+            c.selectionner(saisie.selectionStart, saisie.selectionEnd);
+    }
+
+    // clic dans la zone de recherche : on abandonne la sélection (Ctrl+A)
+    function annulerSelection() {
+        // selectionStart/selectionEnd sont en lecture seule sur un TextField Plasma :
+        // on retire la sélection par la méthode dédiée
+        saisie.deselect();
+        var c = fenetre.capsule;
+        if (c && c.deselectionner)
+            c.deselectionner();
+    }
+
     function fermer() {
         racine.fenetreOuverte = false;
+    }
+
+    function borne(minV, maxV, v) { return Math.max(minV, Math.min(v, maxV)); }
+
+    // Positionnement manuel calqué sur miryu-start : centré sur la capsule,
+    // collé à la barre du côté du panneau, et borné pour rester à l'écran.
+    function popupPosition(width, height) {
+        var screenAvail = racine ? racine.availableScreenRect : Qt.rect(0, 0, 0, 0);
+        var screenGeom = racine ? racine.screenGeometry : Qt.rect(0, 0, 0, 0);
+        var screen = Qt.rect(screenAvail.x + screenGeom.x,
+                             screenAvail.y + screenGeom.y,
+                             screenAvail.width, screenAvail.height);
+        var offset = Kirigami.Units.smallSpacing;
+        var m = fenetre.margins;
+        var mt = (m && isFinite(m.top)) ? m.top : 0;
+        var mb = (m && isFinite(m.bottom)) ? m.bottom : 0;
+        var ml = (m && isFinite(m.left)) ? m.left : 0;
+        var mr = (m && isFinite(m.right)) ? m.right : 0;
+        var espaceHaut = mt + Kirigami.Units.smallSpacing;
+
+        var hauteurFenetre = (isFinite(height) && height > 0)
+            ? height
+            : (fenetre.hauteurContenu + mt + mb);
+
+        var appletTopLeft = capsule ? capsule.mapToGlobal(0, 0) : Qt.point(0, 0);
+        var x = screen.x + offset;
+        var y = screen.y + screen.height - hauteurFenetre;
+
+        if (Plasmoid.location === PlasmaCore.Types.BottomEdge) {
+            var centreBoutonX = appletTopLeft.x + capsule.width / 2;
+            x = borne(screen.x + offset,
+                      screen.x + screen.width - width - offset,
+                      centreBoutonX - width / 2);
+            y = screen.y + screen.height - hauteurFenetre;
+            // Ancrage de sécurité sur la barre : le bas de la fenêtre ne descend
+            // jamais sous le haut réel de la capsule (haut de la barre des tâches),
+            // même si availableScreenRect est imprécis.
+            if (isFinite(appletTopLeft.y) && appletTopLeft.y > 0)
+                y = Math.min(y, appletTopLeft.y - hauteurFenetre);
+        } else if (Plasmoid.location === PlasmaCore.Types.TopEdge) {
+            var centreBoutonHautX = appletTopLeft.x + capsule.width / 2;
+            x = borne(screen.x + offset,
+                      screen.x + screen.width - width - offset,
+                      centreBoutonHautX - width / 2);
+            y = screen.y;
+        } else if (Plasmoid.location === PlasmaCore.Types.LeftEdge) {
+            var centreBoutonY = appletTopLeft.y + capsule.height / 2;
+            x = appletTopLeft.x + capsule.width + mr + offset;
+            y = borne(screen.y + offset,
+                      screen.y + screen.height - hauteurFenetre - offset,
+                      centreBoutonY - hauteurFenetre / 2);
+        } else if (Plasmoid.location === PlasmaCore.Types.RightEdge) {
+            var centreBoutonDroitY = appletTopLeft.y + capsule.height / 2;
+            x = appletTopLeft.x - ml - offset - width;
+            y = borne(screen.y + offset,
+                      screen.y + screen.height - hauteurFenetre - offset,
+                      centreBoutonDroitY - hauteurFenetre / 2);
+        }
+
+        // Sécurité finale : le bas de la fenêtre ne passe jamais sous le bas de
+        // l'écran utile (la barre des tâches n'est jamais recouverte)…
+        if (y + hauteurFenetre > screen.y + screen.height)
+            y = screen.y + screen.height - hauteurFenetre;
+        // … et le haut ne dépasse pas le bord supérieur (coins arrondis visibles).
+        if (y < screen.y + espaceHaut) y = screen.y + espaceHaut;
+        return Qt.point(x, y);
     }
 
     onVisibleChanged: {
         if (visible) {
             ouvertures++;
+            // Borne la hauteur du contenu à l'écran utile, applique la taille
+            // à la fenêtre, puis la positionne. On recalcule une fois après le
+            // chargement des marges du cadre par Plasma.
+            fenetre.hauteurContenu = fenetre.calculerHauteurContenu();
+            var m = fenetre.margins;
+            var ml = (m && isFinite(m.left)) ? m.left : 0;
+            var mr = (m && isFinite(m.right)) ? m.right : 0;
+            var mt = (m && isFinite(m.top)) ? m.top : 0;
+            var mb = (m && isFinite(m.bottom)) ? m.bottom : 0;
+            fenetre.width = fenetre.largeurContenu + ml + mr;
+            fenetre.height = fenetre.hauteurContenu + mt + mb;
+            var pos = fenetre.popupPosition(fenetre.width, fenetre.height);
+            fenetre.x = pos.x;
+            fenetre.y = pos.y;
+            ajustementTaille.restart();
             activer();
-            racine.placer();
-            Qt.callLater(racine.placer);      // une fois la taille réelle connue
             Qt.callLater(activer);            // une seconde fois, fenêtre réellement affichée
         } else {
             saisie.text = "";
             filtre = "All";
             if (racine.fenetreOuverte) racine.fenetreOuverte = false;   // fermée seule
+        }
+    }
+
+    onWidthChanged: {
+        if (visible) {
+            var pos = popupPosition(width, height);
+            x = pos.x;
+            y = pos.y;
+        }
+    }
+
+    onHeightChanged: {
+        if (visible) {
+            var pos = popupPosition(width, height);
+            x = pos.x;
+            y = pos.y;
         }
     }
 
@@ -62,6 +211,8 @@ PlasmaCore.Dialog {
     property bool enCours: false
     property var carteResultat: null   // carte du haut : calcul ou premier document
     property bool carteCalcul: false
+    // suggestion de complétion : le reste du meilleur résultat (ex. « kd » → « E Connect »)
+    property string suggestion: ""
 
     // ── Recherche web : dernière ligne de la liste ──
     property string sortieKde: ""      // moteur choisi dans KDE (lu par code/moteur-kde.sh)
@@ -84,7 +235,21 @@ PlasmaCore.Dialog {
             requete = "";
             resultats = [];
             carteResultat = null;
+            suggestion = "";
+            if (racine) racine.suggestion = "";
         }
+    }
+
+    // complétion proposée : le meilleur résultat qui commence par le texte tapé
+    function calculerSuggestion() {
+        if (texte.length === 0 || resultats.length === 0) return "";
+        var r = resultats[0];
+        if (!r || r.web) return "";
+        var affiche = (r.display || "").toString();
+        if (affiche.length === 0) return "";
+        if (affiche.toLowerCase().indexOf(texte.toLowerCase()) === 0)
+            return affiche.substring(texte.length);
+        return "";
     }
 
     function reclasser() {
@@ -109,7 +274,7 @@ PlasmaCore.Dialog {
             });
         }
         var liste = Classement.classer(bruts, texte, filtre, filtre === "All" ? 20 : 120,
-                                       i18n("Other Results"));
+                                       i18n("Best match"));
 
         // carte du haut : le calcul si KRunner en propose un en premier, sinon le premier résultat
         var calc = bruts.length > 0 && Classement.estCalcul(bruts[0].category, bruts[0].decoration, bruts[0].duplicateId);
@@ -129,6 +294,9 @@ PlasmaCore.Dialog {
             });
         }
         resultats = liste;
+        // complétion proposée dans la capsule (le texte tapé + le reste du meilleur résultat)
+        suggestion = calculerSuggestion();
+        if (racine) racine.suggestion = suggestion;
         if (requete === texte) {
             enCours = false;
             finAttente.stop();
@@ -152,8 +320,15 @@ PlasmaCore.Dialog {
     }
 
     mainItem: Item {
-        width: 1000
-        height: 780
+        id: contenu
+        // La taille du contenu est bornée à l'écran utile pour éviter le
+        // chevauchement de la barre des tâches et garder les coins arrondis.
+        width: fenetre.largeurContenu
+        height: fenetre.hauteurContenu
+        Layout.minimumWidth: fenetre.largeurContenu
+        Layout.maximumWidth: fenetre.largeurContenu
+        Layout.minimumHeight: fenetre.hauteurContenu
+        Layout.maximumHeight: fenetre.hauteurContenu
 
         // objets non visuels ici : une Dialog n'accepte que des éléments graphiques
         Milou.ResultsModel {
@@ -180,6 +355,29 @@ PlasmaCore.Dialog {
             interval: 900
             onTriggered: fenetre.enCours = false
         }
+        Timer {   // recalcule la hauteur idéale après le chargement des marges du cadre
+            id: ajustementTaille
+            interval: 30
+            repeat: false
+            onTriggered: {
+                if (!fenetre.visible) return;
+                var nouvelleHauteur = fenetre.calculerHauteurContenu();
+                if (nouvelleHauteur !== fenetre.hauteurContenu)
+                    fenetre.hauteurContenu = nouvelleHauteur;
+                ajustementPosition.restart();
+            }
+        }
+        Timer {   // repositionne la fenêtre après un redimensionnement / chargement des marges
+            id: ajustementPosition
+            interval: 30
+            repeat: false
+            onTriggered: {
+                if (!fenetre.visible) return;
+                var pos = fenetre.popupPosition(fenetre.width, fenetre.height);
+                fenetre.x = pos.x;
+                fenetre.y = pos.y;
+            }
+        }
 
         // moteur web de KDE (Configuration système > Recherche web), lu une fois à l'ouverture
         Plasma5Support.DataSource {
@@ -197,6 +395,12 @@ PlasmaCore.Dialog {
                 if (fenetre.visible && Plasmoid.configuration.moteurWeb === "kde")
                     lectureKde.connectSource(lectureKde.commande);
             }
+        }
+        // clic dans la capsule (zone de recherche) : fin de la sélection Ctrl+A
+        Connections {
+            target: fenetre.capsule
+            ignoreUnknownSignals: true
+            function onAnnulerSelection() { fenetre.annulerSelection(); }
         }
 
         // accueil : même source que le menu Démarrer (Kicker), seulement les récents
@@ -249,21 +453,52 @@ PlasmaCore.Dialog {
 
         Item {
             id: cadre
-            width: 800
-            height: 830
+            // suit la taille réelle de mainItem : si Plasma la réduit au
+            // contenu utile, le contenu suit au lieu d'être tronqué
+            anchors.fill: parent
 
-            // champ invisible : c'est lui qui reçoit la frappe ; la capsule l'affiche
+            // en mode « icône seule », la capsule n'affiche plus le texte :
+            // le champ de recherche remonte en haut de la fenêtre et devient visible
             PlasmaComponents.TextField {
                 id: saisie
-                width: 1
-                height: 1
-                opacity: 0
+                x: 12
+                y: 10
+                width: fenetre.iconeSeule ? parent.width - 24 : 1
+                height: fenetre.iconeSeule ? 34 : 1
+                opacity: fenetre.iconeSeule ? 1 : 0
+                placeholderText: i18n("Search")
                 onTextChanged: racine.texteRecherche = text
                 onAccepted: listeResultats.lancerCourant()
                 Keys.onEscapePressed: fenetre.fermer()
                 Keys.onUpPressed: listeResultats.monter()
                 Keys.onDownPressed: listeResultats.descendre()
-                Keys.onTabPressed: (event) => { event.accepted = true; }
+                Keys.onTabPressed: (event) => {
+                    event.accepted = true;
+                    // Tab complète la suggestion (façon Windows) : le texte saisi
+                    // reçoit le reste proposé dans la capsule
+                    if (fenetre.suggestion.length > 0)
+                        saisie.text = fenetre.texte + fenetre.suggestion;
+                }
+                // Flèche droite : complète la suggestion MAIS seulement si le curseur
+                // est déjà à la fin du texte et qu'il n'y a pas de sélection active.
+                // Sinon on laisse le comportement normal (déplacement du curseur ou
+                // étirement de la sélection vers la droite).
+                Keys.onRightPressed: (event) => {
+                    // selectedText.length > 0 → sélection active, on passe
+                    // cursorPosition < text.length → curseur au milieu, on passe
+                    if (saisie.selectedText.length === 0
+                        && saisie.cursorPosition >= saisie.text.length
+                        && fenetre.suggestion.length > 0) {
+                        event.accepted = true;
+                        saisie.text = fenetre.texte + fenetre.suggestion;
+                        // Curseur à la fin après complétion
+                        saisie.cursorPosition = saisie.text.length;
+                    }
+                }
+                // la sélection du champ reste gérée par le champ lui-même (Ctrl+A,
+                // Maj+flèches, souris) ; on la recopie dans la capsule pour l'affichage
+                onSelectionStartChanged: fenetre.refleterSelection()
+                onSelectionEndChanged: fenetre.refleterSelection()
             }
 
             // ── Puces de filtre (visibles pendant une recherche) ──
@@ -275,7 +510,7 @@ PlasmaCore.Dialog {
                 anchors.right: parent.right
                 anchors.leftMargin: 12
                 anchors.rightMargin: 12
-                anchors.topMargin: montree ? 10 : 0
+                anchors.topMargin: fenetre.hauteurSaisie + (montree ? 10 : 0)
                 height: montree ? 32 : 0
                 opacity: montree ? 1 : 0
                 clip: true
@@ -284,10 +519,64 @@ PlasmaCore.Dialog {
                 Behavior on anchors.topMargin { NumberAnimation { duration: Kirigami.Units.shortDuration; easing.type: Easing.OutCubic } }
                 Behavior on opacity { NumberAnimation { duration: Kirigami.Units.shortDuration; easing.type: Easing.OutCubic } }
 
+                // bouton Retour : revient à l'accueil depuis les résultats
+                Item {
+                    id: boutonRetourHaut
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 28
+                    height: 24
+
+                    readonly property bool sombre: Kirigami.Theme.textColor.hslLightness > 0.5
+
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: 12
+                        // survol : teinte d'accent, comme les puces de filtre —
+                        // l'ancien écart de blanc translucide était invisible
+                        color: survolRetourHaut.containsMouse
+                               ? Qt.rgba(Kirigami.Theme.highlightColor.r,
+                                         Kirigami.Theme.highlightColor.g,
+                                         Kirigami.Theme.highlightColor.b, 0.25)
+                               : (boutonRetourHaut.sombre ? "#26ffffff" : "#80ffffff")
+                        border.width: 1
+                        border.color: survolRetourHaut.containsMouse
+                               ? Qt.rgba(Kirigami.Theme.highlightColor.r,
+                                         Kirigami.Theme.highlightColor.g,
+                                         Kirigami.Theme.highlightColor.b, 0.5)
+                               : (boutonRetourHaut.sombre ? "#1affffff" : "#14000000")
+                    }
+                    Kirigami.Icon {
+                        anchors.centerIn: parent
+                        width: 16
+                        height: 16
+                        source: "go-previous"
+                        isMask: true
+                        color: Kirigami.Theme.textColor
+                    }
+                    MouseArea {
+                        id: survolRetourHaut
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.ArrowCursor
+                        onClicked: {
+                            saisie.text = "";
+                            Qt.callLater(fenetre.activer);
+                        }
+                    }
+                }
+
                 PucesFiltres {
-                    anchors.fill: parent
+                    anchors.left: boutonRetourHaut.right
+                    anchors.leftMargin: 8
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
                     actif: fenetre.filtre
-                    onChoisir: (f) => fenetre.filtre = f
+                    onChoisir: (f) => {
+                        fenetre.annulerSelection();
+                        fenetre.filtre = f;
+                    }
                 }
             }
 
@@ -313,7 +602,7 @@ PlasmaCore.Dialog {
                 anchors.topMargin: 6
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.bottom: bandeau.top
+                anchors.bottom: parent.bottom
                 anchors.leftMargin: 12
                 anchors.rightMargin: 12
                 anchors.bottomMargin: 12
@@ -329,10 +618,10 @@ PlasmaCore.Dialog {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.bottom: bandeau.top
+                anchors.bottom: parent.bottom
                 anchors.leftMargin: 22
                 anchors.rightMargin: 32
-                anchors.topMargin: 16
+                anchors.topMargin: fenetre.hauteurSaisie + 16
                 anchors.bottomMargin: 12
                 visible: fenetre.texte.length === 0
                 modeleApps: modeleRecents.count > 0 ? modeleRecents.modelForRow(0) : null
@@ -345,19 +634,7 @@ PlasmaCore.Dialog {
                 }
             }
 
-            // ── Bandeau du bas ──
-            BandeauBas {
-                id: bandeau
-                anchors.left: parent.left
-                anchors.leftMargin: -7
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                recherche: fenetre.texte.length > 0
-                onRetour: {
-                    saisie.text = "";
-                    Qt.callLater(fenetre.activer);
-                }
-            }
+            // plus de bandeau du bas : le bouton Retour vit en haut des résultats
         }
     }
 }

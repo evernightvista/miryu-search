@@ -4,7 +4,7 @@
 # Machine-assisted translation — to be reviewed by a native speaker
 msgid ""
 msgstr ""
-"Project-Id-Version: Fenestra Search 1.0\n"
+"Project-Id-Version: Miryu Search 1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/naykkalak/fenestra-search/issues\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,8 +81,8 @@ msgid "“Follow KDE settings” uses the default engine chosen in System Settin
 msgstr "‘KDE-instellingen volgen’ gebruikt de standaardzoekmachine uit Systeeminstellingen › Webzoeksleutelwoorden."
 
 #: contents/ui/FenetreRecherche.qml:112
-msgid "Other Results"
-msgstr "Overige resultaten"
+msgid "Best match"
+msgstr "Beste resultaten"
 
 #: contents/ui/FenetreRecherche.qml:122
 msgid "Search “%1” on %2"
@@ -124,3 +124,15 @@ msgstr "Mappen"
 msgid "Web"
 msgstr "Web"
 
+
+#: contents/ui/main.qml contents/ui/ConfigGeneral.qml
+msgid "Show icon only"
+msgstr "Alleen pictogram tonen"
+
+#: contents/ui/ConfigGeneral.qml
+msgid "Search box:"
+msgstr "Zoekvak:"
+
+#: contents/ui/ConfigGeneral.qml
+msgid "In icon-only mode, the search field moves to the top of the search window. You can also right-click the search box to toggle this."
+msgstr "In de modus 'alleen pictogram' verhuist het zoekvak naar de bovenkant van het zoekvenster. U kunt deze modus ook aan/uit zetten door met de rechtermuisknop op het zoekvak te klikken."
