@@ -23,5 +23,10 @@
     <entry name="iconeSeule" type="Bool">
       <default>false</default>
     </entry>
+    <!-- liste « Récent » : programmes et modules de la Configuration du système
+         ouverts par la recherche (JSON sérialisé) -->
+    <entry name="recents" type="String">
+      <default></default>
+    </entry>
   </group>
 </kcfg>

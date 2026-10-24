@@ -94,6 +94,30 @@ function estDossier(rubrique, url, icone) {
         || contient(rubrique, MOTS.dossier);
 }
 
+// Détecte si un résultat est un programme OU un module de la Configuration
+// du système (KCM). Ces éléments sont mémorisés dans la liste « Récent ».
+// type retourné : "app", "settings" ou "" si non concerné.
+var MOTS_SETTINGS = ["settings", "configuration", "reglage", "reglages", "parametre", "parametres",
+                     "configuración", "configuracao", "configuração", "configurazione",
+                     "настройк", "установк", "параметр", "設定", "设置", "설정",
+                     "einstellungen", "instellingen", "ustawien", "ayarlar", "impostazioni"];
+
+function estLancable(rubrique, url, id, icone) {
+    var u = minuscule(url), i = minuscule(icone);
+    // modules KCM explicites : kcm_xxx.desktop, kcm://..., kcmshell, systemsettings
+    if (u.indexOf("kcm:") === 0) return "settings";
+    if (u.indexOf("kcmshell") !== -1 || u.indexOf("systemsettings") !== -1) return "settings";
+    if (/\/kcm_[^\/]+\.desktop$/.test(u)) return "settings";
+    if (i.indexOf("preferences-") === 0 || i.indexOf("system-settings") === 0
+        || i === "systemsettings" || i.indexOf("kcm") === 0
+        || i === "configure" || i === "settings-configure")
+        return "settings";
+    if (contient(rubrique, MOTS_SETTINGS)) return "settings";
+    // applications (y compris celles dont l'icône est de type « app »)
+    if (estApplication(rubrique, url, id, icone)) return "app";
+    return "";
+}
+
 // suggestions de la Logithèque (« Obtenir … ») : applications non installées,
 // absentes de la recherche de Windows 11 -> masquées
 function estLogitheque(rubrique, url) {
@@ -209,6 +233,9 @@ function classer(bruts, texte, filtre, maximum, autresResultats) {
 // chemin affiché sous le nom : relatif au dossier personnel
 function cheminCourt(r) {
     if (r.web) return r.subtext;      // recherche web : le site du moteur
-    var p = String(r.url || "").replace("file://", "").replace(/^\/home\/[^\/]+\//, "");
+    var u = String(r.url || "");
+    // programme ou module KCM (.desktop) : ne pas afficher le chemin technique
+    if (/\.desktop$/i.test(u.split(/[?#]/)[0])) return r.subtext || "";
+    var p = u.replace("file://", "").replace(/^\/home\/[^\/]+\//, "");
     return p || r.subtext || "";
 }

@@ -5,92 +5,154 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Miryu Search 1.0\n"
-"Report-Msgid-Bugs-To: https://github.com/naykkalak/fenestra-search/issues\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-23 20:01+0800\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: contents/config/config.qml:11
-msgid "General"
-msgstr "General"
-
-#: contents/ui/Accueil.qml:47
+#: contents/ui/Accueil.qml:52
 msgid "Recent"
 msgstr "Recientes"
 
-#: contents/ui/Accueil.qml:101
-msgid "Home"
-msgstr "Carpeta personal"
+#: contents/ui/Accueil.qml:99 contents/ui/FenetreRecherche.qml:839
+msgid "System Settings"
+msgstr "Configuración del sistema"
 
-#: contents/ui/Accueil.qml:144
+#: contents/ui/Accueil.qml:100
+msgid "Application"
+msgstr "Aplicación"
+
+#: contents/ui/Accueil.qml:161
+msgid "Nothing has been run recently"
+msgstr "No se ha ejecutado nada recientemente"
+
+#: contents/ui/Accueil.qml:185
 msgid "Quick searches"
 msgstr "Búsquedas rápidas"
 
-#: contents/ui/Accueil.qml:195
+#: contents/ui/Accueil.qml:236
 msgid "Audio"
 msgstr "Audio"
 
-#: contents/ui/Accueil.qml:196
+#: contents/ui/Accueil.qml:237
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: contents/ui/Accueil.qml:197
+#: contents/ui/Accueil.qml:238
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: contents/ui/Accueil.qml:198
+#: contents/ui/Accueil.qml:239
 msgid "Display"
 msgstr "Pantalla"
 
-#: contents/ui/Accueil.qml:199
+#: contents/ui/Accueil.qml:240
 msgid "Colors"
 msgstr "Colores"
 
-#: contents/ui/Accueil.qml:200
+#: contents/ui/Accueil.qml:241
 msgid "Wallpaper"
 msgstr "Fondo de pantalla"
 
-#: contents/ui/Accueil.qml:239
+#: contents/ui/Accueil.qml:280
 msgid "Top apps"
 msgstr "Aplicaciones principales"
 
-#: contents/ui/BandeauBas.qml:58
-msgid "Back"
-msgstr "Volver"
-
-#: contents/ui/Capsule.qml:113
+#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:669
 msgid "Search"
 msgstr "Buscar"
 
-#: contents/ui/ConfigGeneral.qml:19
+#: contents/ui/ConfigGeneral.qml:20
 msgid "Search box width:"
 msgstr "Ancho del cuadro de búsqueda:"
 
-#: contents/ui/ConfigGeneral.qml:33
+#: contents/ui/ConfigGeneral.qml:34
+msgid "Search box:"
+msgstr "Casilla de búsqueda:"
+
+#: contents/ui/ConfigGeneral.qml:35 contents/ui/main.qml:43
+msgid "Show icon only"
+msgstr "Mostrar solo el icono"
+
+#: contents/ui/ConfigGeneral.qml:39
+msgid ""
+"In icon-only mode, the search field moves to the top of the search window. "
+"You can also right-click the search box to toggle this."
+msgstr ""
+"En el modo de solo icono, el campo de búsqueda pasa a la parte superior de "
+"la ventana de búsqueda. También puede hacer clic derecho en la casilla para "
+"alternar este modo."
+
+#: contents/ui/ConfigGeneral.qml:48
 msgid "Web search engine:"
 msgstr "Motor de búsqueda web:"
 
-#: contents/ui/ConfigGeneral.qml:36
+#: contents/ui/ConfigGeneral.qml:51
 msgid "Follow KDE settings"
 msgstr "Seguir la configuración de KDE"
 
-#: contents/ui/ConfigGeneral.qml:43
-msgid "“Follow KDE settings” uses the default engine chosen in System Settings › Web Search Keywords."
-msgstr "«Seguir la configuración de KDE» usa el motor predeterminado elegido en Preferencias del sistema › Palabras clave de búsqueda web."
+#: contents/ui/ConfigGeneral.qml:58
+msgid ""
+"“Follow KDE settings” uses the default engine chosen in System Settings › "
+"Web Search Keywords."
+msgstr ""
+"«Seguir la configuración de KDE» usa el motor predeterminado elegido en "
+"Preferencias del sistema › Palabras clave de búsqueda web."
 
-#: contents/ui/FenetreRecherche.qml:112
+#: contents/ui/FenetreRecherche.qml:281
 msgid "Best match"
 msgstr "Mejores resultados"
 
-#: contents/ui/FenetreRecherche.qml:122
+#: contents/ui/FenetreRecherche.qml:291
 msgid "Search “%1” on %2"
 msgstr "Buscar «%1» en %2"
 
-#: contents/ui/FenetreRecherche.qml:128
+#: contents/ui/FenetreRecherche.qml:297
 msgid "Web search"
 msgstr "Búsqueda web"
+
+#: contents/ui/FenetreRecherche.qml:699
+msgid "Add to Desktop"
+msgstr "Añadir al escritorio"
+
+#: contents/ui/FenetreRecherche.qml:706
+msgid "Pin to Start Menu"
+msgstr "Anclar al menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:439
+msgid "“%1” has been added to the desktop"
+msgstr "«%1» se ha añadido al escritorio"
+
+#: contents/ui/FenetreRecherche.qml:451
+msgid "“%1” has been pinned to the Start menu"
+msgstr "«%1» se ha anclado al menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:921
+msgid "Unpin from Start Menu"
+msgstr "Desanclar del menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:576
+msgid "“%1” has been unpinned from the Start menu"
+msgstr "«%1» se ha desanclado del menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:525
+msgid "“%1” could not be added to the desktop"
+msgstr "No se pudo añadir «%1» al escritorio"
+
+#: contents/ui/FenetreRecherche.qml:550
+msgid "“%1” could not be pinned to the Start menu"
+msgstr "No se pudo anclar «%1» al menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:577
+msgid "“%1” could not be unpinned from the Start menu"
+msgstr "No se pudo desanclar «%1» del menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:494
+msgid "Remove this history entry"
+msgstr "Quitar esta entrada del historial"
 
 #: contents/ui/ListeResultats.qml:61
 msgid "Searching…"
@@ -124,15 +186,12 @@ msgstr "Carpetas"
 msgid "Web"
 msgstr "Web"
 
+#: contents/config/config.qml:11
+msgid "General"
+msgstr "General"
 
-#: contents/ui/main.qml contents/ui/ConfigGeneral.qml
-msgid "Show icon only"
-msgstr "Mostrar solo el icono"
+#~ msgid "Home"
+#~ msgstr "Carpeta personal"
 
-#: contents/ui/ConfigGeneral.qml
-msgid "Search box:"
-msgstr "Casilla de búsqueda:"
-
-#: contents/ui/ConfigGeneral.qml
-msgid "In icon-only mode, the search field moves to the top of the search window. You can also right-click the search box to toggle this."
-msgstr "En el modo de solo icono, el campo de búsqueda pasa a la parte superior de la ventana de búsqueda. También puede hacer clic derecho en la casilla para alternar este modo."
+#~ msgid "Back"
+#~ msgstr "Volver"

@@ -5,92 +5,155 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Miryu Search 1.0\n"
-"Report-Msgid-Bugs-To: https://github.com/naykkalak/fenestra-search/issues\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-23 20:01+0800\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: contents/config/config.qml:11
-msgid "General"
-msgstr "Общие"
-
-#: contents/ui/Accueil.qml:47
+#: contents/ui/Accueil.qml:52
 msgid "Recent"
 msgstr "Недавние"
 
-#: contents/ui/Accueil.qml:101
-msgid "Home"
-msgstr "Домашняя папка"
+#: contents/ui/Accueil.qml:99 contents/ui/FenetreRecherche.qml:839
+msgid "System Settings"
+msgstr "Системные настройки"
 
-#: contents/ui/Accueil.qml:144
+#: contents/ui/Accueil.qml:100
+msgid "Application"
+msgstr "Приложение"
+
+#: contents/ui/Accueil.qml:161
+msgid "Nothing has been run recently"
+msgstr "В последнее время ничего не запускалось"
+
+#: contents/ui/Accueil.qml:185
 msgid "Quick searches"
 msgstr "Быстрый поиск"
 
-#: contents/ui/Accueil.qml:195
+#: contents/ui/Accueil.qml:236
 msgid "Audio"
 msgstr "Звук"
 
-#: contents/ui/Accueil.qml:196
+#: contents/ui/Accueil.qml:237
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: contents/ui/Accueil.qml:197
+#: contents/ui/Accueil.qml:238
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: contents/ui/Accueil.qml:198
+#: contents/ui/Accueil.qml:239
 msgid "Display"
 msgstr "Экран"
 
-#: contents/ui/Accueil.qml:199
+#: contents/ui/Accueil.qml:240
 msgid "Colors"
 msgstr "Цвета"
 
-#: contents/ui/Accueil.qml:200
+#: contents/ui/Accueil.qml:241
 msgid "Wallpaper"
 msgstr "Обои"
 
-#: contents/ui/Accueil.qml:239
+#: contents/ui/Accueil.qml:280
 msgid "Top apps"
 msgstr "Популярные приложения"
 
-#: contents/ui/BandeauBas.qml:58
-msgid "Back"
-msgstr "Назад"
-
-#: contents/ui/Capsule.qml:113
+#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:669
 msgid "Search"
 msgstr "Поиск"
 
-#: contents/ui/ConfigGeneral.qml:19
+#: contents/ui/ConfigGeneral.qml:20
 msgid "Search box width:"
 msgstr "Ширина поля поиска:"
 
-#: contents/ui/ConfigGeneral.qml:33
+#: contents/ui/ConfigGeneral.qml:34
+msgid "Search box:"
+msgstr "Строка поиска:"
+
+#: contents/ui/ConfigGeneral.qml:35 contents/ui/main.qml:43
+msgid "Show icon only"
+msgstr "Показывать только значок"
+
+#: contents/ui/ConfigGeneral.qml:39
+msgid ""
+"In icon-only mode, the search field moves to the top of the search window. "
+"You can also right-click the search box to toggle this."
+msgstr ""
+"В режиме «только значок» строка поиска переносится в верхнюю часть окна "
+"поиска. Этот режим также можно переключать щелчком правой кнопкой мыши по "
+"строке поиска."
+
+#: contents/ui/ConfigGeneral.qml:48
 msgid "Web search engine:"
 msgstr "Поисковая система:"
 
-#: contents/ui/ConfigGeneral.qml:36
+#: contents/ui/ConfigGeneral.qml:51
 msgid "Follow KDE settings"
 msgstr "Как в настройках KDE"
 
-#: contents/ui/ConfigGeneral.qml:43
-msgid "“Follow KDE settings” uses the default engine chosen in System Settings › Web Search Keywords."
-msgstr "«Как в настройках KDE» использует поисковую систему по умолчанию из Параметров системы › Ключевые слова веб-поиска."
+#: contents/ui/ConfigGeneral.qml:58
+msgid ""
+"“Follow KDE settings” uses the default engine chosen in System Settings › "
+"Web Search Keywords."
+msgstr ""
+"«Как в настройках KDE» использует поисковую систему по умолчанию из "
+"Параметров системы › Ключевые слова веб-поиска."
 
-#: contents/ui/FenetreRecherche.qml:112
+#: contents/ui/FenetreRecherche.qml:281
 msgid "Best match"
 msgstr "Лучшие совпадения"
 
-#: contents/ui/FenetreRecherche.qml:122
+#: contents/ui/FenetreRecherche.qml:291
 msgid "Search “%1” on %2"
 msgstr "Искать «%1» в %2"
 
-#: contents/ui/FenetreRecherche.qml:128
+#: contents/ui/FenetreRecherche.qml:297
 msgid "Web search"
 msgstr "Поиск в интернете"
+
+#: contents/ui/FenetreRecherche.qml:699
+msgid "Add to Desktop"
+msgstr "Добавить на рабочий стол"
+
+#: contents/ui/FenetreRecherche.qml:706
+msgid "Pin to Start Menu"
+msgstr "Закрепить в меню «Пуск»"
+
+#: contents/ui/FenetreRecherche.qml:439
+msgid "“%1” has been added to the desktop"
+msgstr "«%1» добавлено на рабочий стол"
+
+#: contents/ui/FenetreRecherche.qml:451
+msgid "“%1” has been pinned to the Start menu"
+msgstr "«%1» закреплено в меню «Пуск»"
+
+#: contents/ui/FenetreRecherche.qml:921
+msgid "Unpin from Start Menu"
+msgstr "Открепить от меню «Пуск»"
+
+#: contents/ui/FenetreRecherche.qml:576
+msgid "“%1” has been unpinned from the Start menu"
+msgstr "«%1» откреплено от меню «Пуск»"
+
+#: contents/ui/FenetreRecherche.qml:525
+msgid "“%1” could not be added to the desktop"
+msgstr "Не удалось добавить «%1» на рабочий стол"
+
+#: contents/ui/FenetreRecherche.qml:550
+msgid "“%1” could not be pinned to the Start menu"
+msgstr "Не удалось закрепить «%1» в меню «Пуск»"
+
+#: contents/ui/FenetreRecherche.qml:577
+msgid "“%1” could not be unpinned from the Start menu"
+msgstr "Не удалось открепить «%1» от меню «Пуск»"
+
+#: contents/ui/FenetreRecherche.qml:494
+msgid "Remove this history entry"
+msgstr "Удалить эту запись истории"
 
 #: contents/ui/ListeResultats.qml:61
 msgid "Searching…"
@@ -124,15 +187,12 @@ msgstr "Папки"
 msgid "Web"
 msgstr "Интернет"
 
+#: contents/config/config.qml:11
+msgid "General"
+msgstr "Общие"
 
-#: contents/ui/main.qml contents/ui/ConfigGeneral.qml
-msgid "Show icon only"
-msgstr "Показывать только значок"
+#~ msgid "Home"
+#~ msgstr "Домашняя папка"
 
-#: contents/ui/ConfigGeneral.qml
-msgid "Search box:"
-msgstr "Строка поиска:"
-
-#: contents/ui/ConfigGeneral.qml
-msgid "In icon-only mode, the search field moves to the top of the search window. You can also right-click the search box to toggle this."
-msgstr "В режиме «только значок» строка поиска переносится в верхнюю часть окна поиска. Этот режим также можно переключать щелчком правой кнопкой мыши по строке поиска."
+#~ msgid "Back"
+#~ msgstr "Назад"

@@ -8,7 +8,8 @@ import org.kde.kirigami as Kirigami
 import org.kde.plasma.extras as PlasmaExtras
 
 // Accueil (rien de tapé), deux colonnes façon Windows 11 :
-//  - à gauche : Récent (documents récents, comme le menu Démarrer) ;
+//  - à gauche : Récent (programmes et modules de la Configuration du système
+//    ouverts par la recherche, le plus récent en tête) ;
 //  - à droite : Recherches rapides (modules de la Configuration du système)
 //    puis Top des applications (applications récentes).
 Item {
@@ -16,8 +17,12 @@ Item {
 
     property var modeleApps: null     // modèles Kicker, ceux du menu Démarrer
     property var modeleDocs: null
+    property var recents: []         // programmes et modules KCM ouverts par la recherche
     property int revision: 0          // change à chaque ouverture : listes relues
-    signal ouvrirModule(string module)
+    signal ouvrirModule(string module, string libelle)
+    signal ouvrirRecent(var item)
+    signal supprimerRecent(var item)
+    signal ouvrirMenu(var item, var parentItem, int x, int y)
     signal fini()
 
     readonly property int largeurColonne: (width - 24) / 2
@@ -35,7 +40,7 @@ Item {
         fini();
     }
 
-    // ---- Colonne de gauche : Récent ----
+    // ---- Colonne de gauche : Récent (programmes et modules KCM ouverts) ----
     Column {
         id: colonneRecent
         anchors.top: parent.top
@@ -52,59 +57,79 @@ Item {
         }
 
         Repeater {
-            model: 12
+            model: accueil.recents
             Item {
                 width: colonneRecent.width
                 height: 40
-                visible: libelleDoc.text.length > 0
 
                 Kirigami.Icon {
-                    id: iconeDoc
+                    id: iconeRecent
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-                    width: 24
-                    height: 48
-                    source: {
-                        var d = accueil.donnee(accueil.modeleDocs, index, Qt.DecorationRole);
-                        return (typeof d === "string") ? d : "";
-                    }
+                    width: 32
+                    height: 32
+                    source: modelData.decoration || ""
                 }
-                // nom + dossier, comme les recommandations du menu Démarrer
+                // nom + type (Application / Configuration du système)
                 Column {
-                    anchors.left: iconeDoc.right
+                    anchors.left: iconeRecent.right
                     anchors.leftMargin: 10
-                    anchors.right: parent.right
+                    anchors.right: boutonSupprimer.left
+                    anchors.rightMargin: 4
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 0
                     Text {
-                        id: libelleDoc
+                        id: libelleRecent
                         width: parent.width
                         elide: Text.ElideRight
                         maximumLineCount: 1
                         font.family: Kirigami.Theme.defaultFont.family
                         font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                         color: accueil.teinte
-                        text: String(accueil.donnee(accueil.modeleDocs, index, Qt.DisplayRole))
+                        // « libelle » : nom relu dans la langue courante (voir
+                        // FenetreRecherche.recentsAffiches) ; repli sur le nom
+                        // mémorisé au moment de l'ouverture.
+                        text: String(modelData.libelle || modelData.display || "")
                     }
                     Text {
                         width: parent.width
-                        visible: text !== ""
                         elide: Text.ElideRight
                         maximumLineCount: 1
                         font.family: Kirigami.Theme.defaultFont.family
                         font.pixelSize: Math.round(Kirigami.Theme.defaultFont.pixelSize * 0.9)
                         color: Qt.rgba(accueil.teinte.r, accueil.teinte.g, accueil.teinte.b, 0.6)
-                        // 266 = adresse du document dans le modèle Kicker
-                        text: String(accueil.donnee(accueil.modeleDocs, index, 266))
-                                .replace(/^file:\/\//, "")
-                                .replace(/\/[^\/]*$/, "")
-                                .replace(/^\/home\/[^\/]+/, i18n("Home"))
+                        text: modelData.type === "settings"
+                              ? i18n("System Settings")
+                              : i18n("Application")
+                    }
+                }
+                // bouton « X » de suppression, visible au survol
+                Item {
+                    id: boutonSupprimer
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 24
+                    height: 24
+                    visible: survolRecent.containsMouse
+                    z: 2
+                    Kirigami.Icon {
+                        anchors.centerIn: parent
+                        width: 16
+                        height: 16
+                        source: "window-close"
+                        isMask: true
+                        color: Qt.rgba(accueil.teinte.r, accueil.teinte.g, accueil.teinte.b, 0.6)
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: accueil.supprimerRecent(modelData)
                     }
                 }
                 Rectangle {   // surlignage au survol, valeurs du menu Démarrer
                     anchors.fill: parent
                     anchors.leftMargin: -12
-                    visible: survolDoc.containsMouse
+                    visible: survolRecent.containsMouse
                     color: (Kirigami.Theme.textColor.hslLightness > 0.5 ? "#26ffffff" : "#80ffffff")
                     border.width: 1
                     border.color: (Kirigami.Theme.textColor.hslLightness > 0.5 ? "#1affffff" : "#14000000")
@@ -112,12 +137,55 @@ Item {
                     z: -1
                 }
                 MouseArea {
-                    id: survolDoc
+                    id: survolRecent
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: accueil.lancer(accueil.modeleDocs, index)
+                    acceptedButtons: Qt.LeftButton | Qt.RightButton
+                    onClicked: (mouse) => {
+                        if (mouse.button === Qt.RightButton) {
+                            accueil.ouvrirMenu(modelData, survolRecent, mouse.x, mouse.y)
+                        } else {
+                            accueil.ouvrirRecent(modelData)
+                        }
+                    }
                 }
+            }
+        }
+    }
+
+    // message quand la liste des récents est vide : icône + texte centrés dans
+    // la colonne « Récent » (sous le titre, jusqu'au bas de la zone), comme
+    // dans le menu Démarrer d'origine où le bloc occupe toute la hauteur libre.
+    Item {
+        id: zoneVideRecent
+        anchors.top: colonneRecent.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: colonneRecent.left
+        anchors.right: colonneRecent.right
+        visible: accueil.recents.length === 0
+
+        Column {
+            anchors.centerIn: parent
+            width: parent.width
+            spacing: 8
+
+            Kirigami.Icon {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 44
+                height: 44
+                // icône du thème (Breeze) : aucun fichier à livrer avec le widget
+                source: "folder-temp"
+            }
+
+            Text {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                color: Qt.rgba(accueil.teinte.r, accueil.teinte.g, accueil.teinte.b, 0.5)
+                font.family: Kirigami.Theme.defaultFont.family
+                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
+                text: i18n("Nothing has been run recently")
+                wrapMode: Text.WordWrap
             }
         }
     }
@@ -214,7 +282,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: accueil.ouvrirModule(modelData.module)
+                            onClicked: accueil.ouvrirModule(modelData.module, modelData.libelle)
                         }
                         Text {
                             anchors.fill: parent
