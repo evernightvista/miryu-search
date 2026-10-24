@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Miryu Search 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 20:01+0800\n"
+"POT-Creation-Date: 2026-10-24 13:41+0800\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,51 +17,51 @@ msgstr ""
 msgid "Recent"
 msgstr "最近使用"
 
-#: contents/ui/Accueil.qml:99 contents/ui/FenetreRecherche.qml:839
+#: contents/ui/Accueil.qml:102 contents/ui/FenetreRecherche.qml:1560
 msgid "System Settings"
 msgstr "系統設定"
 
-#: contents/ui/Accueil.qml:100
+#: contents/ui/Accueil.qml:103
 msgid "Application"
 msgstr "應用程式"
 
-#: contents/ui/Accueil.qml:161
+#: contents/ui/Accueil.qml:187
 msgid "Nothing has been run recently"
 msgstr "最近沒有執行任何內容"
 
-#: contents/ui/Accueil.qml:185
+#: contents/ui/Accueil.qml:212
 msgid "Quick searches"
 msgstr "快速搜尋"
 
-#: contents/ui/Accueil.qml:236
+#: contents/ui/Accueil.qml:263
 msgid "Audio"
 msgstr "音訊"
 
-#: contents/ui/Accueil.qml:237
+#: contents/ui/Accueil.qml:264
 msgid "Bluetooth"
 msgstr "藍牙"
 
-#: contents/ui/Accueil.qml:238
+#: contents/ui/Accueil.qml:265
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: contents/ui/Accueil.qml:239
+#: contents/ui/Accueil.qml:266
 msgid "Display"
 msgstr "顯示"
 
-#: contents/ui/Accueil.qml:240
+#: contents/ui/Accueil.qml:267
 msgid "Colors"
 msgstr "色彩"
 
-#: contents/ui/Accueil.qml:241
+#: contents/ui/Accueil.qml:268
 msgid "Wallpaper"
 msgstr "桌布"
 
-#: contents/ui/Accueil.qml:280
+#: contents/ui/Accueil.qml:307
 msgid "Top apps"
 msgstr "常用應用程式"
 
-#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:669
+#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:1389
 msgid "Search"
 msgstr "搜尋"
 
@@ -99,55 +99,55 @@ msgid ""
 "Web Search Keywords."
 msgstr "「遵循 KDE 設定」會使用在系統設定 › 網頁搜尋關鍵字中選擇的預設引擎。"
 
-#: contents/ui/FenetreRecherche.qml:281
+#: contents/ui/FenetreRecherche.qml:348
 msgid "Best match"
 msgstr "最佳符合"
 
-#: contents/ui/FenetreRecherche.qml:291
+#: contents/ui/FenetreRecherche.qml:358
 msgid "Search “%1” on %2"
 msgstr "在 %2 上搜尋「%1」"
 
-#: contents/ui/FenetreRecherche.qml:297
+#: contents/ui/FenetreRecherche.qml:364
 msgid "Web search"
 msgstr "網頁搜尋"
 
-#: contents/ui/FenetreRecherche.qml:699
-msgid "Add to Desktop"
-msgstr "新增到桌面"
-
-#: contents/ui/FenetreRecherche.qml:706
-msgid "Pin to Start Menu"
-msgstr "釘選到開始功能表"
-
-#: contents/ui/FenetreRecherche.qml:439
-msgid "“%1” has been added to the desktop"
-msgstr "“%1”已加入桌面"
-
-#: contents/ui/FenetreRecherche.qml:451
-msgid "“%1” has been pinned to the Start menu"
-msgstr "“%1”已釘選到開始功能表"
-
-#: contents/ui/FenetreRecherche.qml:921
-msgid "Unpin from Start Menu"
-msgstr "取消釘選到開始功能表"
-
-#: contents/ui/FenetreRecherche.qml:576
-msgid "“%1” has been unpinned from the Start menu"
-msgstr "“%1”已取消釘選到開始功能表"
-
-#: contents/ui/FenetreRecherche.qml:525
+#: contents/ui/FenetreRecherche.qml:626
 msgid "“%1” could not be added to the desktop"
 msgstr "無法將“%1”加入桌面"
 
-#: contents/ui/FenetreRecherche.qml:550
+#: contents/ui/FenetreRecherche.qml:630
+msgid "“%1” has been added to the desktop"
+msgstr "“%1”已加入桌面"
+
+#: contents/ui/FenetreRecherche.qml:651
+msgid "“%1” has been pinned to the Start menu"
+msgstr "“%1”已釘選到開始功能表"
+
+#: contents/ui/FenetreRecherche.qml:652
 msgid "“%1” could not be pinned to the Start menu"
 msgstr "無法將“%1”釘選到開始功能表"
 
-#: contents/ui/FenetreRecherche.qml:577
+#: contents/ui/FenetreRecherche.qml:677
+msgid "“%1” has been unpinned from the Start menu"
+msgstr "“%1”已取消釘選到開始功能表"
+
+#: contents/ui/FenetreRecherche.qml:678
 msgid "“%1” could not be unpinned from the Start menu"
 msgstr "無法將“%1”取消釘選到開始功能表"
 
-#: contents/ui/FenetreRecherche.qml:494
+#: contents/ui/FenetreRecherche.qml:1081
+msgid "Add to Desktop"
+msgstr "新增到桌面"
+
+#: contents/ui/FenetreRecherche.qml:1088
+msgid "Unpin from Start Menu"
+msgstr "取消釘選到開始功能表"
+
+#: contents/ui/FenetreRecherche.qml:1091
+msgid "Pin to Start Menu"
+msgstr "釘選到開始功能表"
+
+#: contents/ui/FenetreRecherche.qml:1112
 msgid "Remove this history entry"
 msgstr "移除此歷程項目"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Miryu Search 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 20:01+0800\n"
+"POT-Creation-Date: 2026-10-24 13:41+0800\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,51 +17,51 @@ msgstr ""
 msgid "Recent"
 msgstr "최근 항목"
 
-#: contents/ui/Accueil.qml:99 contents/ui/FenetreRecherche.qml:839
+#: contents/ui/Accueil.qml:102 contents/ui/FenetreRecherche.qml:1560
 msgid "System Settings"
 msgstr "시스템 설정"
 
-#: contents/ui/Accueil.qml:100
+#: contents/ui/Accueil.qml:103
 msgid "Application"
 msgstr "응용 프로그램"
 
-#: contents/ui/Accueil.qml:161
+#: contents/ui/Accueil.qml:187
 msgid "Nothing has been run recently"
 msgstr "최근 실행된 항목이 없습니다"
 
-#: contents/ui/Accueil.qml:185
+#: contents/ui/Accueil.qml:212
 msgid "Quick searches"
 msgstr "빠른 검색"
 
-#: contents/ui/Accueil.qml:236
+#: contents/ui/Accueil.qml:263
 msgid "Audio"
 msgstr "오디오"
 
-#: contents/ui/Accueil.qml:237
+#: contents/ui/Accueil.qml:264
 msgid "Bluetooth"
 msgstr "블루투스"
 
-#: contents/ui/Accueil.qml:238
+#: contents/ui/Accueil.qml:265
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: contents/ui/Accueil.qml:239
+#: contents/ui/Accueil.qml:266
 msgid "Display"
 msgstr "디스플레이"
 
-#: contents/ui/Accueil.qml:240
+#: contents/ui/Accueil.qml:267
 msgid "Colors"
 msgstr "색상"
 
-#: contents/ui/Accueil.qml:241
+#: contents/ui/Accueil.qml:268
 msgid "Wallpaper"
 msgstr "배경 화면"
 
-#: contents/ui/Accueil.qml:280
+#: contents/ui/Accueil.qml:307
 msgid "Top apps"
 msgstr "자주 쓰는 앱"
 
-#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:669
+#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:1389
 msgid "Search"
 msgstr "검색"
 
@@ -101,55 +101,55 @@ msgstr ""
 "「KDE 설정 따르기」는 시스템 설정 › 웹 검색 키워드에서 선택한 기본 엔진을 사"
 "용합니다."
 
-#: contents/ui/FenetreRecherche.qml:281
+#: contents/ui/FenetreRecherche.qml:348
 msgid "Best match"
 msgstr "최적 일치"
 
-#: contents/ui/FenetreRecherche.qml:291
+#: contents/ui/FenetreRecherche.qml:358
 msgid "Search “%1” on %2"
 msgstr "%2에서 “%1” 검색"
 
-#: contents/ui/FenetreRecherche.qml:297
+#: contents/ui/FenetreRecherche.qml:364
 msgid "Web search"
 msgstr "웹 검색"
 
-#: contents/ui/FenetreRecherche.qml:699
-msgid "Add to Desktop"
-msgstr "데스크톱에 추가"
-
-#: contents/ui/FenetreRecherche.qml:706
-msgid "Pin to Start Menu"
-msgstr "시작 메뉴에 고정"
-
-#: contents/ui/FenetreRecherche.qml:439
-msgid "“%1” has been added to the desktop"
-msgstr "\"%1\"이(가) 데스크톱에 추가되었습니다"
-
-#: contents/ui/FenetreRecherche.qml:451
-msgid "“%1” has been pinned to the Start menu"
-msgstr "\"%1\"이(가) 시작 메뉴에 고정되었습니다"
-
-#: contents/ui/FenetreRecherche.qml:921
-msgid "Unpin from Start Menu"
-msgstr "시작 메뉴에서 고정 해제"
-
-#: contents/ui/FenetreRecherche.qml:576
-msgid "“%1” has been unpinned from the Start menu"
-msgstr "\"%1\"이(가) 시작 메뉴에서 고정 해제되었습니다"
-
-#: contents/ui/FenetreRecherche.qml:525
+#: contents/ui/FenetreRecherche.qml:626
 msgid "“%1” could not be added to the desktop"
 msgstr "\"%1\"을(를) 데스크톱에 추가할 수 없습니다"
 
-#: contents/ui/FenetreRecherche.qml:550
+#: contents/ui/FenetreRecherche.qml:630
+msgid "“%1” has been added to the desktop"
+msgstr "\"%1\"이(가) 데스크톱에 추가되었습니다"
+
+#: contents/ui/FenetreRecherche.qml:651
+msgid "“%1” has been pinned to the Start menu"
+msgstr "\"%1\"이(가) 시작 메뉴에 고정되었습니다"
+
+#: contents/ui/FenetreRecherche.qml:652
 msgid "“%1” could not be pinned to the Start menu"
 msgstr "\"%1\"을(를) 시작 메뉴에 고정할 수 없습니다"
 
-#: contents/ui/FenetreRecherche.qml:577
+#: contents/ui/FenetreRecherche.qml:677
+msgid "“%1” has been unpinned from the Start menu"
+msgstr "\"%1\"이(가) 시작 메뉴에서 고정 해제되었습니다"
+
+#: contents/ui/FenetreRecherche.qml:678
 msgid "“%1” could not be unpinned from the Start menu"
 msgstr "\"%1\"을(를) 시작 메뉴에서 고정 해제할 수 없습니다"
 
-#: contents/ui/FenetreRecherche.qml:494
+#: contents/ui/FenetreRecherche.qml:1081
+msgid "Add to Desktop"
+msgstr "데스크톱에 추가"
+
+#: contents/ui/FenetreRecherche.qml:1088
+msgid "Unpin from Start Menu"
+msgstr "시작 메뉴에서 고정 해제"
+
+#: contents/ui/FenetreRecherche.qml:1091
+msgid "Pin to Start Menu"
+msgstr "시작 메뉴에 고정"
+
+#: contents/ui/FenetreRecherche.qml:1112
 msgid "Remove this history entry"
 msgstr "이 기록 항목 제거"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Miryu Search 45.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 20:01+0800\n"
+"POT-Creation-Date: 2026-10-24 13:49+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,51 +21,51 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
-#: contents/ui/Accueil.qml:99 contents/ui/FenetreRecherche.qml:839
+#: contents/ui/Accueil.qml:102 contents/ui/FenetreRecherche.qml:1560
 msgid "System Settings"
 msgstr ""
 
-#: contents/ui/Accueil.qml:100
+#: contents/ui/Accueil.qml:103
 msgid "Application"
 msgstr ""
 
-#: contents/ui/Accueil.qml:161
+#: contents/ui/Accueil.qml:187
 msgid "Nothing has been run recently"
 msgstr ""
 
-#: contents/ui/Accueil.qml:185
+#: contents/ui/Accueil.qml:212
 msgid "Quick searches"
 msgstr ""
 
-#: contents/ui/Accueil.qml:236
+#: contents/ui/Accueil.qml:263
 msgid "Audio"
 msgstr ""
 
-#: contents/ui/Accueil.qml:237
+#: contents/ui/Accueil.qml:264
 msgid "Bluetooth"
 msgstr ""
 
-#: contents/ui/Accueil.qml:238
+#: contents/ui/Accueil.qml:265
 msgid "Wi-Fi"
 msgstr ""
 
-#: contents/ui/Accueil.qml:239
+#: contents/ui/Accueil.qml:266
 msgid "Display"
 msgstr ""
 
-#: contents/ui/Accueil.qml:240
+#: contents/ui/Accueil.qml:267
 msgid "Colors"
 msgstr ""
 
-#: contents/ui/Accueil.qml:241
+#: contents/ui/Accueil.qml:268
 msgid "Wallpaper"
 msgstr ""
 
-#: contents/ui/Accueil.qml:280
+#: contents/ui/Accueil.qml:307
 msgid "Top apps"
 msgstr ""
 
-#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:669
+#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:1389
 msgid "Search"
 msgstr ""
 
@@ -101,55 +101,55 @@ msgid ""
 "Web Search Keywords."
 msgstr ""
 
-#: contents/ui/FenetreRecherche.qml:281
+#: contents/ui/FenetreRecherche.qml:348
 msgid "Best match"
 msgstr ""
 
-#: contents/ui/FenetreRecherche.qml:291
+#: contents/ui/FenetreRecherche.qml:358
 msgid "Search “%1” on %2"
 msgstr ""
 
-#: contents/ui/FenetreRecherche.qml:297
+#: contents/ui/FenetreRecherche.qml:364
 msgid "Web search"
 msgstr ""
 
-#: contents/ui/FenetreRecherche.qml:699
-msgid "Add to Desktop"
-msgstr ""
-
-#: contents/ui/FenetreRecherche.qml:706
-msgid "Pin to Start Menu"
-msgstr ""
-
-#: contents/ui/FenetreRecherche.qml:439
-msgid "“%1” has been added to the desktop"
-msgstr ""
-
-#: contents/ui/FenetreRecherche.qml:451
-msgid "“%1” has been pinned to the Start menu"
-msgstr ""
-
-#: contents/ui/FenetreRecherche.qml:921
-msgid "Unpin from Start Menu"
-msgstr ""
-
-#: contents/ui/FenetreRecherche.qml:576
-msgid "“%1” has been unpinned from the Start menu"
-msgstr ""
-
-#: contents/ui/FenetreRecherche.qml:525
+#: contents/ui/FenetreRecherche.qml:626
 msgid "“%1” could not be added to the desktop"
 msgstr ""
 
-#: contents/ui/FenetreRecherche.qml:550
+#: contents/ui/FenetreRecherche.qml:630
+msgid "“%1” has been added to the desktop"
+msgstr ""
+
+#: contents/ui/FenetreRecherche.qml:651
+msgid "“%1” has been pinned to the Start menu"
+msgstr ""
+
+#: contents/ui/FenetreRecherche.qml:652
 msgid "“%1” could not be pinned to the Start menu"
 msgstr ""
 
-#: contents/ui/FenetreRecherche.qml:577
+#: contents/ui/FenetreRecherche.qml:677
+msgid "“%1” has been unpinned from the Start menu"
+msgstr ""
+
+#: contents/ui/FenetreRecherche.qml:678
 msgid "“%1” could not be unpinned from the Start menu"
 msgstr ""
 
-#: contents/ui/FenetreRecherche.qml:494
+#: contents/ui/FenetreRecherche.qml:1081
+msgid "Add to Desktop"
+msgstr ""
+
+#: contents/ui/FenetreRecherche.qml:1088
+msgid "Unpin from Start Menu"
+msgstr ""
+
+#: contents/ui/FenetreRecherche.qml:1091
+msgid "Pin to Start Menu"
+msgstr ""
+
+#: contents/ui/FenetreRecherche.qml:1112
 msgid "Remove this history entry"
 msgstr ""
 

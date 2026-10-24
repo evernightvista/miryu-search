@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Miryu Search 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 20:01+0800\n"
+"POT-Creation-Date: 2026-10-24 13:41+0800\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,51 +17,51 @@ msgstr ""
 msgid "Recent"
 msgstr "Recientes"
 
-#: contents/ui/Accueil.qml:99 contents/ui/FenetreRecherche.qml:839
+#: contents/ui/Accueil.qml:102 contents/ui/FenetreRecherche.qml:1560
 msgid "System Settings"
 msgstr "Configuración del sistema"
 
-#: contents/ui/Accueil.qml:100
+#: contents/ui/Accueil.qml:103
 msgid "Application"
 msgstr "Aplicación"
 
-#: contents/ui/Accueil.qml:161
+#: contents/ui/Accueil.qml:187
 msgid "Nothing has been run recently"
 msgstr "No se ha ejecutado nada recientemente"
 
-#: contents/ui/Accueil.qml:185
+#: contents/ui/Accueil.qml:212
 msgid "Quick searches"
 msgstr "Búsquedas rápidas"
 
-#: contents/ui/Accueil.qml:236
+#: contents/ui/Accueil.qml:263
 msgid "Audio"
 msgstr "Audio"
 
-#: contents/ui/Accueil.qml:237
+#: contents/ui/Accueil.qml:264
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: contents/ui/Accueil.qml:238
+#: contents/ui/Accueil.qml:265
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: contents/ui/Accueil.qml:239
+#: contents/ui/Accueil.qml:266
 msgid "Display"
 msgstr "Pantalla"
 
-#: contents/ui/Accueil.qml:240
+#: contents/ui/Accueil.qml:267
 msgid "Colors"
 msgstr "Colores"
 
-#: contents/ui/Accueil.qml:241
+#: contents/ui/Accueil.qml:268
 msgid "Wallpaper"
 msgstr "Fondo de pantalla"
 
-#: contents/ui/Accueil.qml:280
+#: contents/ui/Accueil.qml:307
 msgid "Top apps"
 msgstr "Aplicaciones principales"
 
-#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:669
+#: contents/ui/Capsule.qml:143 contents/ui/FenetreRecherche.qml:1389
 msgid "Search"
 msgstr "Buscar"
 
@@ -102,55 +102,55 @@ msgstr ""
 "«Seguir la configuración de KDE» usa el motor predeterminado elegido en "
 "Preferencias del sistema › Palabras clave de búsqueda web."
 
-#: contents/ui/FenetreRecherche.qml:281
+#: contents/ui/FenetreRecherche.qml:348
 msgid "Best match"
 msgstr "Mejores resultados"
 
-#: contents/ui/FenetreRecherche.qml:291
+#: contents/ui/FenetreRecherche.qml:358
 msgid "Search “%1” on %2"
 msgstr "Buscar «%1» en %2"
 
-#: contents/ui/FenetreRecherche.qml:297
+#: contents/ui/FenetreRecherche.qml:364
 msgid "Web search"
 msgstr "Búsqueda web"
 
-#: contents/ui/FenetreRecherche.qml:699
-msgid "Add to Desktop"
-msgstr "Añadir al escritorio"
-
-#: contents/ui/FenetreRecherche.qml:706
-msgid "Pin to Start Menu"
-msgstr "Anclar al menú Inicio"
-
-#: contents/ui/FenetreRecherche.qml:439
-msgid "“%1” has been added to the desktop"
-msgstr "«%1» se ha añadido al escritorio"
-
-#: contents/ui/FenetreRecherche.qml:451
-msgid "“%1” has been pinned to the Start menu"
-msgstr "«%1» se ha anclado al menú Inicio"
-
-#: contents/ui/FenetreRecherche.qml:921
-msgid "Unpin from Start Menu"
-msgstr "Desanclar del menú Inicio"
-
-#: contents/ui/FenetreRecherche.qml:576
-msgid "“%1” has been unpinned from the Start menu"
-msgstr "«%1» se ha desanclado del menú Inicio"
-
-#: contents/ui/FenetreRecherche.qml:525
+#: contents/ui/FenetreRecherche.qml:626
 msgid "“%1” could not be added to the desktop"
 msgstr "No se pudo añadir «%1» al escritorio"
 
-#: contents/ui/FenetreRecherche.qml:550
+#: contents/ui/FenetreRecherche.qml:630
+msgid "“%1” has been added to the desktop"
+msgstr "«%1» se ha añadido al escritorio"
+
+#: contents/ui/FenetreRecherche.qml:651
+msgid "“%1” has been pinned to the Start menu"
+msgstr "«%1» se ha anclado al menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:652
 msgid "“%1” could not be pinned to the Start menu"
 msgstr "No se pudo anclar «%1» al menú Inicio"
 
-#: contents/ui/FenetreRecherche.qml:577
+#: contents/ui/FenetreRecherche.qml:677
+msgid "“%1” has been unpinned from the Start menu"
+msgstr "«%1» se ha desanclado del menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:678
 msgid "“%1” could not be unpinned from the Start menu"
 msgstr "No se pudo desanclar «%1» del menú Inicio"
 
-#: contents/ui/FenetreRecherche.qml:494
+#: contents/ui/FenetreRecherche.qml:1081
+msgid "Add to Desktop"
+msgstr "Añadir al escritorio"
+
+#: contents/ui/FenetreRecherche.qml:1088
+msgid "Unpin from Start Menu"
+msgstr "Desanclar del menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:1091
+msgid "Pin to Start Menu"
+msgstr "Anclar al menú Inicio"
+
+#: contents/ui/FenetreRecherche.qml:1112
 msgid "Remove this history entry"
 msgstr "Quitar esta entrada del historial"
 
