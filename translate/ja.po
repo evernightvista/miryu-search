@@ -103,7 +103,7 @@ msgstr ""
 
 #: contents/ui/FenetreRecherche.qml:348
 msgid "Best match"
-msgstr "ベストマッチ"
+msgstr "最も一致する検索結果"
 
 #: contents/ui/FenetreRecherche.qml:358
 msgid "Search “%1” on %2"

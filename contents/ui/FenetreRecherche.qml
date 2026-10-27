@@ -589,17 +589,156 @@ PlasmaCore.Dialog {
         try { return modeleToutes.favoritesModel; } catch (e) { return null; }
     }
 
+    // Retrouve l'identifiant favoriteIdRole exact d'une application.
+    // Méthode principale : parcourt le modèle "Toutes les applications" de Kicker
+    // (modeleApplications()) — chaque ligne expose déjà favoriteIdRole et
+    // kickerUrlRole tels que les écrit Kicker, même logique que miryu-start
+    // (ItemGridDelegateColumns.qml lit model.favoriteId qui vient de ce rôle).
+    // Fallback : parcourt aussi le modèle des favoris lui-même au cas où
+    // l'application ne serait pas dans AllApps.
+    function trouverFavoriteIdExact(id, chemin, nom) {
+        var cibleId = idKicker(String(id || "")).trim();
+        var cibleIdNorm = cibleId.replace(/\.desktop$/i, "");
+        var cibleChemin = String(chemin || "").trim();
+        if (cibleChemin.indexOf("exec://") === 0) cibleChemin = cibleChemin.substring(7);
+        if (cibleChemin.indexOf("file://") === 0) cibleChemin = cibleChemin.substring(7);
+        if (cibleChemin.indexOf("applications:") === 0) cibleChemin = cibleChemin.substring(13);
+        var cibleNom = String(nom || "").trim();
+
+        // --- méthode 1 : parcourir le modèle AllApps de Kicker (le plus fiable) ---
+        var m = modeleApplications();
+        if (m) {
+            var n = 0;
+            try { n = m.rowCount(); } catch (e) { n = 0; }
+            for (var i = 0; i < n; i++) {
+                var idx;
+                try { idx = m.index(i, 0); } catch (e2) { continue; }
+                if (!idx) continue;
+                var favId = "", favUrl = "", affNom = "";
+                try { favId = String(m.data(idx, roleFavori) || ""); } catch (e3) {}
+                try { favUrl = String(m.data(idx, roleUrl) || ""); } catch (e4) {}
+                try { affNom = String(m.data(idx, Qt.DisplayRole) || ""); } catch (e5) {}
+                if (!favId || favId.length === 0) continue;
+
+                var match = false;
+                // identifiant exact (après retrait du prefix applications:)
+                if (cibleIdNorm.length > 0) {
+                    var favIdNorm = idKicker(favId).replace(/\.desktop$/i, "");
+                    if (favIdNorm === cibleIdNorm) match = true;
+                }
+                // chemin complet du .desktop
+                if (!match && cibleChemin.length > 0) {
+                    var favUrlNorm = favUrl;
+                    if (favUrlNorm.indexOf("file://") === 0) favUrlNorm = favUrlNorm.substring(7);
+                    if (favUrlNorm === cibleChemin) match = true;
+                }
+                // nom affiché (repli)
+                if (!match && cibleNom.length > 0 && affNom === cibleNom) match = true;
+
+                if (match) return favId;
+            }
+        }
+
+        // --- méthode 2 : parcourir le modèle des favoris lui-même ---
+        var f = modeleFavoris();
+        if (f) {
+            var n2 = 0;
+            try { n2 = f.rowCount(); } catch (e) { n2 = 0; }
+            for (var j = 0; j < n2; j++) {
+                var idx2;
+                try { idx2 = f.index(j, 0); } catch (e2) { continue; }
+                if (!idx2) continue;
+                var favId2 = "", favUrl2 = "", affNom2 = "";
+                try { favId2 = String(f.data(idx2, roleFavori) || ""); } catch (e3) {}
+                try { favUrl2 = String(f.data(idx2, roleUrl) || ""); } catch (e4) {}
+                try { affNom2 = String(f.data(idx2, Qt.DisplayRole) || ""); } catch (e5) {}
+                if (!favId2 || favId2.length === 0) continue;
+
+                var match2 = false;
+                if (cibleIdNorm.length > 0) {
+                    var favIdNorm2 = idKicker(favId2).replace(/\.desktop$/i, "");
+                    if (favIdNorm2 === cibleIdNorm) match2 = true;
+                }
+                if (!match2 && cibleChemin.length > 0) {
+                    var favUrlNorm2 = favUrl2;
+                    if (favUrlNorm2.indexOf("file://") === 0) favUrlNorm2 = favUrlNorm2.substring(7);
+                    if (favUrlNorm2 === cibleChemin) match2 = true;
+                }
+                if (!match2 && cibleNom.length > 0 && affNom2 === cibleNom) match2 = true;
+
+                if (match2) return favId2;
+            }
+        }
+
+        return "";
+    }
+
+    // première ligne du modèle des favoris qui correspond à l'application,
+    // comparée par identifiant .desktop, chemin réel ou nom affiché.
+    // Retourne { favoriteId, url } ou null. C'est la même source que miryu-start :
+    // ses delegates lisent model.favoriteId directement sur les lignes du modèle
+    // des favoris (jamais reconstruit depuis le nom ou le chemin).
+    function ligneFavoriCorrespondante(id, chemin, nom) {
+        var f = modeleFavoris();
+        if (!f) return null;
+        var cibleId = idKicker(String(id || "")).replace(/\.desktop$/i, "").trim();
+        var cibleFichier = String(chemin || "").trim();
+        if (cibleFichier.indexOf("exec://") === 0) cibleFichier = cibleFichier.substring(7);
+        if (cibleFichier.indexOf("file://") === 0) cibleFichier = cibleFichier.substring(7);
+        if (cibleFichier.indexOf("applications:") === 0) cibleFichier = cibleFichier.substring(13);
+        var cibleNom = String(nom || "").trim();
+        var n = 0;
+        try { n = f.rowCount(); } catch (e) { return null; }
+        for (var i = 0; i < n; i++) {
+            var idx;
+            try { idx = f.index(i, 0); } catch (e) { continue; }
+            if (!idx) continue;
+            var favId = "", favUrl = "", affNom = "";
+            try { favId = String(f.data(idx, roleFavori) || ""); } catch (e) {}
+            try { favUrl = String(f.data(idx, roleUrl) || ""); } catch (e) {}
+            try { affNom = String(f.data(idx, Qt.DisplayRole) || ""); } catch (e) {}
+            if (!favId && !favUrl) continue;
+            var correspond = false;
+            // identifiant .desktop (après retrait du préfixe applications: et du .desktop)
+            if (cibleId.length > 0 && favId.length > 0) {
+                if (idKicker(favId).replace(/\.desktop$/i, "") === cibleId) correspond = true;
+            }
+            // chemin complet du fichier .desktop
+            if (!correspond && cibleFichier.length > 0 && favUrl.length > 0) {
+                var p = favUrl;
+                if (p.indexOf("file://") === 0) p = p.substring(7);
+                if (p === cibleFichier) correspond = true;
+            }
+            // nom affiché (repli)
+            if (!correspond && cibleNom.length > 0 && affNom === cibleNom) correspond = true;
+            if (correspond) return { favoriteId: favId, url: favUrl };
+        }
+        return null;
+    }
+
     // vrai si l'application est déjà épinglée au menu Démarrer, y compris
     // lorsqu'elle a été épinglée depuis miryu-start (ressources KActivities
     // partagées, rechargées automatiquement par le modèle de favoris).
-    function estFavori(id, chemin) {
+    function estFavori(id, chemin, nom) {
         var f = modeleFavoris();
         if (!f) return false;
+        // 1. chercher l'identifiant exact via le modèle AllApps de Kicker
+        var exact = trouverFavoriteIdExact(id, chemin, nom);
+        if (exact.length > 0) {
+            try { if (f.isFavorite(exact)) return true; } catch (e) {}
+        }
+        // 2. fallback sur la liste des candidats générés par idsFavori
         var ids = idsFavori(id, chemin);
         for (var i = 0; i < ids.length; i++) {
             try { if (f.isFavorite(ids[i])) return true; } catch (e) {}
         }
-        return false;
+        // 3. lignes du modèle des favoris correspondantes : un favori peut être
+        //    enregistré sous une forme que les candidats ci-dessus ne couvrent
+        //    pas (ex. .desktop copié dans le dossier des applications de
+        //    l'utilisateur sous un autre nom). Sans ce balayage, le menu
+        //    affichait « Épingler » pour un programme déjà épinglé — et le
+        //    désépinglage ne pouvait pas non plus le retrouver.
+        return ligneFavoriCorrespondante(id, chemin, nom) !== null;
     }
 
     // Ajoute l'application au bureau : copie de son .desktop dans le dossier
@@ -632,20 +771,46 @@ PlasmaCore.Dialog {
 
     // Épingle l'application au menu Démarrer : favoris Kicker (KActivities),
     // exactement comme miryu-start (favoritesModel.addFavorite).
+    // On n'ajoute qu'UNE seule forme d'identifiant — la forme canonique
+    // « applications:<menuId> » que KActivities stocke réellement. L'ancienne
+    // version enchaînait sur les candidats de idsFavori (chemin, file://…) dès
+    // que isFavorite() restait faux après addFavorite() (l'ajout arrive par un
+    // événement, jamais en synchronie) : pour un programme dont le .desktop est
+    // dans le dossier des applications, elle liait ainsi des favoris parasites
+    // (« applications:/chemin/… », chemin nu) que le désépinglage ne pouvait
+    // plus retirer par la suite.
     function epinglerAuDemarrage(id, nom, chemin) {
         var f = modeleFavoris();
-        var ids = idsFavori(id, chemin);
-        if (ids.length === 0) ids = idsFavori(idDepuisNom(nom), "");
         var fait = false;
         if (f) {
-            for (var i = 0; i < ids.length; i++) {
-                try {
-                    if (f.isFavorite(ids[i])) { fait = true; break; }
-                    f.addFavorite(ids[i]);
-                    // l'ajout est synchrone quand l'activité courante est prise
-                    // en compte : on vérifie que l'entrée est réellement là.
-                    if (f.isFavorite(ids[i])) { fait = true; break; }
-                } catch (e) {}
+            // déjà épinglé (sous n'importe quelle forme) : rien à faire
+            if (estFavori(id, chemin, nom)) {
+                fait = true;
+            } else {
+                // 1. identifiant exact exposé par AllApps / le modèle des favoris
+                var cible = trouverFavoriteIdExact(id, chemin, nom);
+                if (cible.length === 0) {
+                    // 2. forme canonique dérivée du fichier .desktop résolu :
+                    //    « applications:<nom du fichier> »
+                    var fichier = String(chemin || "").trim();
+                    if (fichier.indexOf("exec://") === 0) fichier = fichier.substring(7);
+                    if (fichier.indexOf("file://") === 0) fichier = fichier.substring(7);
+                    if (fichier.indexOf("applications:") === 0) fichier = fichier.substring(13);
+                    var base = "";
+                    if (fichier.indexOf("/") === 0) base = fichier.substring(fichier.lastIndexOf("/") + 1);
+                    else if (fichier.length > 0) base = fichier;
+                    if (base.length === 0) {
+                        var ib = idKicker(String(id || "")).replace(/\.desktop$/i, "").trim();
+                        base = ib.length > 0 ? ib + ".desktop" : "";
+                    }
+                    if (base.length > 0) cible = "applications:" + base;
+                }
+                if (cible.length > 0) {
+                    try {
+                        if (!f.isFavorite(cible)) f.addFavorite(cible);
+                        fait = true;
+                    } catch (e) {}
+                }
             }
         }
         afficherToast(fait ? i18n("“%1” has been pinned to the Start menu", nom)
@@ -654,28 +819,142 @@ PlasmaCore.Dialog {
 
     // Retire l'application des favoris du menu Démarrer (même modèle que
     // miryu-start, donc le retrait y est visible immédiatement).
+    // Côté KActivities, le favori d'une application est stocké sous la ressource
+    // exacte « applications:<menuId> » (menuId = nom du fichier .desktop) et
+    // removeFavorite ne supprime QUE cette ressource exacte. Un identifiant
+    // reconstruit depuis le nom ou le chemin peut donc passer le test isFavorite()
+    // (qui accepte aussi l'identifiant nu, l'URL file:// et le chemin) sans rien
+    // supprimer : l'ancien code s'arrêtait alors là et le programme restait
+    // épinglé — précisément quand son .desktop se trouve dans le dossier des
+    // applications de l'utilisateur (le « dossier du menu Démarrer »).
+    // On retire donc TOUTES les formes plausibles, et on vérifie à retardement
+    // qu'aucune ligne correspondante ne subsiste (l'événement de retrait arrive
+    // sur la boucle d'événements).
     function desepinglerDuDemarrage(id, nom, chemin) {
         var f = modeleFavoris();
-        var ids = idsFavori(id, chemin);
-        if (ids.length === 0) ids = idsFavori(idDepuisNom(nom), "");
-        var fait = false;
-        if (f) {
-            for (var i = 0; i < ids.length; i++) {
-                try {
-                    if (!f.isFavorite(ids[i])) continue;
-                    f.removeFavorite(ids[i]);
-                    fait = true;
-                    break;
-                } catch (e) {}
+        if (!f) {
+            afficherToast(i18n("“%1” could not be unpinned from the Start menu", nom));
+            return;
+        }
+        var cibles = [];
+        var ajouter = function(v) {
+            if (!v || v.length === 0) return;
+            if (cibles.indexOf(v) === -1) cibles.push(v);
+        };
+
+        // a. forme canonique : « applications:<menuId> » — la ressource réelle
+        var fichier = String(chemin || "").trim();
+        if (fichier.indexOf("exec://") === 0) fichier = fichier.substring(7);
+        if (fichier.indexOf("file://") === 0) fichier = fichier.substring(7);
+        if (fichier.indexOf("applications:") === 0) fichier = fichier.substring(13);
+        var base = "";
+        if (fichier.indexOf("/") === 0) base = fichier.substring(fichier.lastIndexOf("/") + 1);
+        else if (fichier.length > 0) base = fichier;
+        if (base.length === 0) {
+            var ib = idKicker(String(id || "")).replace(/\.desktop$/i, "").trim();
+            base = ib.length > 0 ? ib + ".desktop" : "";
+        }
+        if (base.length > 0) {
+            ajouter("applications:" + base);
+            ajouter(base);
+        }
+
+        // b. identifiant exact exposé par AllApps / le modèle des favoris
+        var exact = trouverFavoriteIdExact(id, chemin, nom);
+        if (exact.length > 0) {
+            ajouter(exact);
+            if (exact.indexOf("applications:") !== 0) ajouter("applications:" + exact);
+        }
+
+        // c. identifiants de la ligne correspondante du modèle des favoris
+        //    lui-même (la même source que miryu-start : model.favoriteId) et
+        //    leurs variantes
+        var ligne = ligneFavoriCorrespondante(id, chemin, nom);
+        if (ligne) {
+            if (ligne.favoriteId.length > 0) {
+                ajouter(ligne.favoriteId);
+                if (ligne.favoriteId.indexOf("applications:") !== 0)
+                    ajouter("applications:" + ligne.favoriteId);
             }
-            // le modèle peut ne pas encore connaître l'entrée (chargement en
-            // cours) : on tente quand même le retrait sur la forme canonique.
-            if (!fait && ids.length > 0) {
-                try { f.removeFavorite(ids[0]); fait = true; } catch (e) {}
+            if (ligne.url.length > 0) {
+                ajouter(ligne.url);
+                var local = ligne.url.indexOf("file://") === 0 ? ligne.url.substring(7) : ligne.url;
+                ajouter(local);
+                if (local.indexOf("/") >= 0) {
+                    var nomFichier = local.substring(local.lastIndexOf("/") + 1);
+                    if (nomFichier.length > 0) ajouter("applications:" + nomFichier);
+                }
             }
         }
-        afficherToast(fait ? i18n("“%1” has been unpinned from the Start menu", nom)
-                           : i18n("“%1” could not be unpinned from the Start menu", nom));
+
+        // d. variantes chemin / file:// : favoris parasites éventuellement liés
+        //    par les versions antérieures qui essayaient toutes les formes lors
+        //    de l'épinglage (validateArguments convertit file:// en chemin nu)
+        if (fichier.indexOf("/") === 0) {
+            ajouter("applications:" + fichier);
+            ajouter("file://" + fichier);
+            ajouter(fichier);
+        }
+
+        // e. candidats génériques de idsFavori (couverture large)
+        var ids = idsFavori(id, chemin);
+        for (var i = 0; i < ids.length; i++) ajouter(ids[i]);
+
+        // 2. retirer chaque candidat : removeFavorite ne fait rien pour un
+        //    identifiant absent du cache du modèle, d'où la boucle sur toutes
+        //    les formes.
+        var retire = false;
+        for (var k = 0; k < cibles.length; k++) {
+            try {
+                if (f.isFavorite(cibles[k])) {
+                    f.removeFavorite(cibles[k]);
+                    retire = true;
+                }
+            } catch (e) {}
+        }
+        afficherToast(retire ? i18n("“%1” has been unpinned from the Start menu", nom)
+                             : i18n("“%1” could not be unpinned from the Start menu", nom));
+        // vérification différée : le modèle se met à jour par événements ; si
+        // une ligne correspondante subsiste (favori sous une forme inattendue),
+        // on la retire aussi.
+        verifierDesepinglage(id, nom, chemin);
+    }
+
+    // relance le contrôle quelques instants après le retrait, avec au plus deux
+    // nouvelles tentatives (le modèle des favoris se met à jour par événements
+    // kactivitymanagerd).
+    function verifierDesepinglage(id, nom, chemin) {
+        verifDesepinglage = { id: id, nom: nom, chemin: chemin, tentatives: 0 };
+        attenteDesepinglage.restart();
+    }
+
+    function controleDesepinglage() {
+        var t = verifDesepinglage;
+        if (!t) return;
+        verifDesepinglage = null;
+        if (t.tentatives >= 2) return;
+        var f = modeleFavoris();
+        if (!f) return;
+        var ligne = ligneFavoriCorrespondante(t.id, t.chemin, t.nom);
+        if (!ligne) return;
+        var cibles = [];
+        if (ligne.favoriteId.length > 0) cibles.push(ligne.favoriteId);
+        if (ligne.url.length > 0) cibles.push(ligne.url);
+        var retire = false;
+        for (var i = 0; i < cibles.length; i++) {
+            try {
+                if (f.isFavorite(cibles[i])) {
+                    f.removeFavorite(cibles[i]);
+                    retire = true;
+                }
+            } catch (e) {}
+        }
+        if (retire) {
+            // encore une vérification au cas où d'autres lignes subsisteraient
+            verifDesepinglage = { id: t.id, nom: t.nom, chemin: t.chemin,
+                                  tentatives: t.tentatives + 1 };
+            attenteDesepinglage.restart();
+        }
     }
 
     // « Ajouter au bureau » : copie le .desktop dans le vrai dossier Bureau.
@@ -1004,6 +1283,8 @@ PlasmaCore.Dialog {
     property string menuSortie: ""
     // nom de l'élément du menu dans la langue courante (lignes NOM|)
     property string menuNom: ""
+    // vérification à retardement du désépinglage (voir controleDesepinglage)
+    property var verifDesepinglage: null
 
     // définitions des entrées du menu contextuel
     // (texte, icône, séparateur, identifiant d'action et ses paramètres)
@@ -1084,7 +1365,7 @@ PlasmaCore.Dialog {
             // Épingler / désépingler : on interroge les favoris Kicker, qui sont
             // les mêmes que ceux de miryu-start — une application déjà épinglée
             // là-bas affiche donc « Désépingler du menu Démarrer ».
-            if (estFavori(id, desktop))
+            if (estFavori(id, desktop, nom))
                 entrees.push({ texte: i18n("Unpin from Start Menu"), icone: "bookmark-remove",
                                action: "desepingler", id: id, chemin: desktop });
             else
@@ -1642,6 +1923,13 @@ PlasmaCore.Dialog {
                 interval: 2600
                 repeat: false
                 onTriggered: toast.opacity = 0
+            }
+
+            Timer {
+                id: attenteDesepinglage
+                interval: 900
+                repeat: false
+                onTriggered: fenetre.controleDesepinglage()
             }
 
             // plus de bandeau du bas : le bouton Retour vit en haut des résultats
