@@ -7,6 +7,7 @@ import QtQuick
 import QtQuick.Layouts
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.kirigami as Kirigami
 
 PlasmoidItem {
@@ -81,6 +82,36 @@ PlasmoidItem {
     }
     // verrou : le panneau Plasma ne s'ouvre jamais, même si Plasma le demande après
     onExpandedChanged: if (expanded) expanded = false
+
+    // ── 默认快捷键：Win+S ──
+    // 首次使用时把 Win+S（Win 键即 Meta）设为激活快捷键；Plasma 只把这种
+    // 设置记成「自定义快捷键」，所以同时让脚本往 kglobalaccel 里补写一份
+    // 「默认快捷键」，系统设置里才会显示在「默认快捷键」一栏（带勾选框）。
+    // 只应用一次：之后用户在系统设置里改掉或清空，都不会被覆盖。
+    Component.onCompleted: {
+        if (Plasmoid.configuration.raccourciDefautEcrit) {
+            return;
+        }
+        if (Plasmoid.globalShortcut.toString().length === 0) {
+            Plasmoid.globalShortcut = "Meta+S";
+        }
+        appliquerRaccourciDefaut();
+        Plasmoid.configuration.raccourciDefautEcrit = true;
+    }
+
+    // Plasma 没有给 plasmoid 声明默认快捷键的接口，只能通过 kglobalaccel
+    // 的 D-Bus 接口（setShortcutKeys + IsDefault）写入，见 code/raccourci-defaut.sh
+    Plasma5Support.DataSource {
+        id: raccourciDefaut
+        engine: "executable"
+        onNewData: (source, donnees) => disconnectSource(source)
+    }
+
+    function appliquerRaccourciDefaut() {
+        var script = String(Qt.resolvedUrl("../code/raccourci-defaut.sh")).replace("file://", "");
+        // 动作名与 Applet::setGlobalShortcut 里的 objectName 一致
+        raccourciDefaut.connectSource("sh '" + script + "' 'activate widget " + Plasmoid.id + "'");
+    }
 
     // ── Placement : calcul manuel calqué sur miryu-start ──
     // FenetreRecherche positionne elle-même sa fenêtre en fonction de

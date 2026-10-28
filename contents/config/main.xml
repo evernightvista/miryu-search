@@ -28,5 +28,11 @@
     <entry name="recents" type="String">
       <default></default>
     </entry>
+    <!-- 默认快捷键 Win+S 是否已经写入过 kglobalaccel：只在首次使用时写一次，
+         之后用户在快捷键设置里改掉或清空都不会被强制恢复
+         （新名字：旧版本只写过「当前快捷键」，用户升级后需要再补写一次） -->
+    <entry name="raccourciDefautEcrit" type="Bool">
+      <default>false</default>
+    </entry>
   </group>
 </kcfg>
